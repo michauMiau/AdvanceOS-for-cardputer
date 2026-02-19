@@ -13,7 +13,9 @@ Upcoming features include text viewing and editing, as well as image display cap
 * TXT JSON CONF : text files (i can add more files type if you like. you can ask in issues Section)
 * OBJ MTL : 3D Model files
 * ESPRC : esp remote control files to controll other esp project remotly See WIKI
-
+* ARD arduboy game
+* NES nes games
+* GBC GB old gameboy and gameboy color games
 
 
 ## 🚀 Installation Options
@@ -53,6 +55,13 @@ How to format to FAT https://www.instructables.com/Format-USB-Flash-Drive-to-FAT
 - FN + Down Arrow : scroll text
 - ESC open Menu
 
+# in Game
+- ESC exit the game and back to file explorer 
+- Arrow key
+- Z is A button
+- X is B button
+- ENTER is START button
+- BACKSPACE / DEL button is SELECT button
 
 # in Media Player
 - [ back 7 second
@@ -83,6 +92,7 @@ How to format to FAT https://www.instructables.com/Format-USB-Flash-Drive-to-FAT
 - [x] ESP project remote control see more info [here](https://github.com/bomberman30/AdvanceOS-for-cardputer/wiki)
 - [ ] radio (Maybe)
 - [x] IR Sender Put IR files in sd card and send via the cardputer you can find IR files [here](https://github.com/Lucaslhm/Flipper-IRDB)
+- [X] Games!! you can Download Arduboy games or NES or GBC games (you need to put "Emulator.extension" file in "AdvanceOS" folder in your SD card) (put the games in "Games" folder in the root of the SD card to see the games in GAME menu, or just run the games via file explorer) if you install AdvanceOS via launcher you need to change partition type to anable the games to work!!!!
 
 #💡 Suggestions are Welcome!
 If you have practical ideas or feature requests, feel free to share!
