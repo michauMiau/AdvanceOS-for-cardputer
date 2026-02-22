@@ -62,6 +62,7 @@ How to format to FAT https://www.instructables.com/Format-USB-Flash-Drive-to-FAT
 - X is B button
 - ENTER is START button
 - BACKSPACE / DEL button is SELECT button
+- in emulator NES or GBC also "L" and "K" "1" and "2" and "WASD" keys suppurted
 
 # in Media Player
 - [ back 7 second
