@@ -92,6 +92,8 @@ How to format to FAT https://www.instructables.com/Format-USB-Flash-Drive-to-FAT
 - [x] ESP project remote control see more info [here](https://github.com/bomberman30/AdvanceOS-for-cardputer/wiki)
 - [ ] radio (Maybe)
 - [x] IR Sender Put IR files in sd card and send via the cardputer you can find IR files [here](https://github.com/Lucaslhm/Flipper-IRDB)
+- [x] Screenshot press FN+S everywere to take screenshot (will be save in AdvaneOS folder)
+
 - [X] Games!! you can Download Arduboy games or NES or GBC games (you need to put "Emulator.extension" file in "AdvanceOS" folder in your SD card) (put the games in "Games" folder in the root of the SD card to see the games in GAME menu, or just run the games via file explorer) if you install AdvanceOS via launcher you need to change partition type to anable the games to work!!!! the OS will ask it Automatic to change if you enter to Games in main menu.
 
 #💡 Suggestions are Welcome!
