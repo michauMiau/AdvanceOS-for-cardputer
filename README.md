@@ -94,8 +94,13 @@ How to format to FAT https://www.instructables.com/Format-USB-Flash-Drive-to-FAT
 - [ ] radio (Maybe)
 - [x] IR Sender Put IR files in sd card and send via the cardputer you can find IR files [here](https://github.com/Lucaslhm/Flipper-IRDB)
 - [x] Screenshot press FN+S everywere to take screenshot (will be save in AdvaneOS folder)
-
+- [x] Custom theme you can create themes and select them ! enter extra menu-> theme manager You can add custom picture to every Menu See TEST_TEHEME folder , you can edit the PNG files as you like
 - [X] Games!! you can Download Arduboy games or NES or GBC games (you need to put "Emulator.extension" file in "AdvanceOS" folder in your SD card) (put the games in "Games" folder in the root of the SD card to see the games in GAME menu, or just run the games via file explorer) if you install AdvanceOS via launcher you need to change partition type to anable the games to work!!!! the OS will ask it Automatic to change if you enter to Games in main menu.
+- you can add picture to a game in game menu
+how to add??
+if your game is MARIO.nes Create PNG file and rename it MARIO.png
+the image must be 135X135 size and PNG format , the image need to be in the same "Games" folder
+
 
 #💡 Suggestions are Welcome!
 If you have practical ideas or feature requests, feel free to share!
