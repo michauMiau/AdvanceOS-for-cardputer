@@ -11,8 +11,8 @@ paint
 <img src="gitFiles/screen_370307.bmp?raw=true">
 talk to (not) AI chatbot
 <img src="gitFiles/screen_11139.bmp?raw=true">
+3D renderer OBJ
 <img src="gitFiles/screen_21074.bmp?raw=true">
-3D renderer OBG
 <img src="gitFiles/screen_34278.bmp?raw=true">
 Games ARDUBOY NES GBC
 <img src="gitFiles/screen_153126.bmp?raw=true">
