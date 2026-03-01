@@ -55,9 +55,9 @@ How to format to FAT https://www.instructables.com/Format-USB-Flash-Drive-to-FAT
 - FN + Down Arrow : scroll text
 - ESC open Menu
 # in paint mode BETA
-- Arrows moce courser
+- Arrows move courser
 - ESC open menu
-- Enter Paint / Accept in menu
+- ENTER Paint / Accept in menu
 - +/- change brush size
 - B brush mode
 - L line mode
