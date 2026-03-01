@@ -1,6 +1,29 @@
 # AdvanceOS
+Music Player
+<img src="gitFiles/screen_105219.bmp?raw=true">
+<img src="gitFiles/screen_71496.bmp?raw=true">
+File explorer 
+<img src="gitFiles/screen_9116.bmp?raw=true">
+<img src="gitFiles/screen_97751.bmp?raw=true">
+paint
+<img src="gitFiles/screen_100373.bmp?raw=true">
+<img src="gitFiles/screen_223244.bmp?raw=true">
+<img src="gitFiles/screen_370307.bmp?raw=true">
+talk to (not) AI chatbot
+<img src="gitFiles/screen_11139.bmp?raw=true">
+<img src="gitFiles/screen_21074.bmp?raw=true">
+3D renderer OBG
+<img src="gitFiles/screen_34278.bmp?raw=true">
+Games ARDUBOY NES GBC
+<img src="gitFiles/screen_153126.bmp?raw=true">
+Wifi Spectrum
+<img src="gitFiles/screen_27807.bmp?raw=true">
+Partition Viewer
+<img src="gitFiles/screen_42323.bmp?raw=true">
 
-<img src="gitFiles/Splash2.png?raw=true">
+
+
+
 AdvanceOS is a lightweight operating system for the CardputerADV, designed primarily for media playback and file browsing.
 Currently, it supports MP3 and WAV playback. In the future, Text editor and lots's of cool stuff!
 Upcoming features include text viewing and editing, as well as image display capabilities.
