@@ -110,6 +110,8 @@ How to format to FAT https://www.instructables.com/Format-USB-Flash-Drive-to-FAT
 - -> move next song
 - <- move back song
 - PLUS key + or MINUS key _ to change volume
+- BETA press 1 for normal sound Equalizer (It's a bit jarring in the headphones), press 2 for soft sound Equalizer
+
 
 # in 3D renderer
 * use file 3d file example from 3D_MODEL folder or create yourself in 3D software like BLENDER
