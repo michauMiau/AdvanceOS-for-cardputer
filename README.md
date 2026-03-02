@@ -82,6 +82,7 @@ How to format to FAT https://www.instructables.com/Format-USB-Flash-Drive-to-FAT
 - ESC open menu
 - ENTER Paint / Accept in menu
 - +/- change brush size
+- P Change Color
 - B brush mode
 - L line mode
 - T triangle mode
