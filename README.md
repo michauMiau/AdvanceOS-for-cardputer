@@ -1,25 +1,25 @@
 # AdvanceOS
-Music Player
+Music Player<br>
 <img src="gitFiles/screen_105219.bmp?raw=true">
-<img src="gitFiles/screen_71496.bmp?raw=true">
-File explorer 
+<img src="gitFiles/screen_71496.bmp?raw=true"><br>
+File explorer <br>
 <img src="gitFiles/screen_9116.bmp?raw=true">
-<img src="gitFiles/screen_97751.bmp?raw=true">
-paint
+<img src="gitFiles/screen_97751.bmp?raw=true"><br>
+Painter (the middle picture is painted version of NOTES, the Screenshot taken By press FN+S)<br>
 <img src="gitFiles/screen_100373.bmp?raw=true">
 <img src="gitFiles/screen_223244.bmp?raw=true">
-<img src="gitFiles/screen_370307.bmp?raw=true">
-talk to (not) AI chatbot
-<img src="gitFiles/screen_11139.bmp?raw=true">
-3D renderer OBJ
+<img src="gitFiles/screen_370307.bmp?raw=true"><br>
+talk to (not) AI chatbot<br>
+<img src="gitFiles/screen_11139.bmp?raw=true"><br>
+3D renderer OBJ<br>
 <img src="gitFiles/screen_21074.bmp?raw=true">
-<img src="gitFiles/screen_34278.bmp?raw=true">
-Games ARDUBOY NES GBC
-<img src="gitFiles/screen_153126.bmp?raw=true">
-Wifi Spectrum
-<img src="gitFiles/screen_27807.bmp?raw=true">
-Partition Viewer
-<img src="gitFiles/screen_42323.bmp?raw=true">
+<img src="gitFiles/screen_34278.bmp?raw=true"><br>
+Games ARDUBOY NES GBC<br>
+<img src="gitFiles/screen_153126.bmp?raw=true"><br>
+Wifi Spectrum<br>
+<img src="gitFiles/screen_27807.bmp?raw=true"><br>
+Partition Viewer<br>
+<img src="gitFiles/screen_42323.bmp?raw=true"><br>
 
 
 
