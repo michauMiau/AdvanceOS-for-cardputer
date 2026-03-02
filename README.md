@@ -77,9 +77,9 @@ How to format to FAT https://www.instructables.com/Format-USB-Flash-Drive-to-FAT
 - FN + Up Arrow : scroll text
 - FN + Down Arrow : scroll text
 - ESC open Menu
-# in paint mode BETA
+# in painter  BETA
 - Arrows move courser
-- ESC open menu
+- ESC open menu (you can see al shortcut in this menu)
 - ENTER Paint / Accept in menu
 - +/- change brush size
 - P Change Color
@@ -87,12 +87,14 @@ How to format to FAT https://www.instructables.com/Format-USB-Flash-Drive-to-FAT
 - L line mode
 - T triangle mode
 - I Eyedropper mode
-- K enter text (depend on brush size try 1 2 or 3
-- U circle mode
+- W PAint Word (depend on brush size try 1 2 or 3
+- C circle mode
 - G bucket mode (draw on in color area)
-- S squre mode
+- R Rectangle mode
 - E ellipse mode
 - F toggle fill mode (if not fill only draw outline)
+- S quick save
+- A reload image Again from file (good for UNDO)
 # in Game
 - ESC exit the game and back to file explorer 
 - Arrow key
@@ -122,7 +124,7 @@ How to format to FAT https://www.instructables.com/Format-USB-Flash-Drive-to-FAT
 - [X] 3d render , it can play small OBJ files, you can use models in 3D_MODEL folder( it render simple materials like colors in faces not Texture!, the materials is in MTL files near the OBJ file, they must be the same name to load the materials), you can create 3d model in blender, export as OBJ, you can assing simple shader like color and assing to the faces, if the load freeze maybe it's too large file, (FPS added to see how the CARDPUTER can handle it)
 - [X] File management: delete, copy,  files DONE!! 
 - [X] Text editor: view create and edit .txt .json .conf files DONE!!
-- [x] paint mode draw new picture or edit old pictur
+- [x] paint mode draw new picture or edit old picture (can't do UNDO function like ctrl+z, the cardputer don't have much RAM)
 - [X] Timer functionality
 - [X] Step's Counter!
 - [x] Image viewer (PNG ,GIF,JPEG) can zoom in and out and pan image by arrow keys and +/- keys(need small size PIC limited by Cardputer RAM)
