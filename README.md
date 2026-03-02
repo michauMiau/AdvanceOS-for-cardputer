@@ -11,10 +11,10 @@ Painter (the middle picture is painted version of NOTES, the Screenshot taken By
 <img src="gitFiles/screen_370307.bmp?raw=true"><br>
 talk to (not) AI chatbot<br>
 <img src="gitFiles/screen_11139.bmp?raw=true"><br>
-3D renderer OBJ<br>
+3D renderer (OBJ files)<br>
 <img src="gitFiles/screen_21074.bmp?raw=true">
 <img src="gitFiles/screen_34278.bmp?raw=true"><br>
-Games ARDUBOY NES GBC<br>
+Games (ARDUBOY NES GBC files) <br>
 <img src="gitFiles/screen_153126.bmp?raw=true"><br>
 Wifi Spectrum<br>
 <img src="gitFiles/screen_27807.bmp?raw=true"><br>
