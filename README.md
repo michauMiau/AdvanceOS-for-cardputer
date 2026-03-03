@@ -32,7 +32,7 @@ Upcoming features include text viewing and editing, as well as image display cap
 
 * MP3 WAV : music files
 * IR : infra red code files (to emit infrared code)
-* GIF PNG JPEG BMP(slow): picture files
+* GIF PNG JPEG BMP(24 BIT only): picture files
 * TXT JSON CONF : text files (i can add more files type if you like. you can ask in issues Section)
 * OBJ MTL : 3D Model files
 * ESPRC : esp remote control files to controll other esp project remotly See WIKI
@@ -77,7 +77,7 @@ How to format to FAT https://www.instructables.com/Format-USB-Flash-Drive-to-FAT
 - FN + Up Arrow : scroll text
 - FN + Down Arrow : scroll text
 - ESC open Menu
-# in painter  BETA
+# in painter  BETA only BMP file(24 BIT only)
 - Arrows move courser
 - ESC open menu (you can see al shortcut in this menu)
 - ENTER Paint / Accept in menu
