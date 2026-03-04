@@ -1,1 +1,1 @@
-open the image in image editor use Bucket and colorize the puctures
+open the image in image editor use Bucket Tool and color the puctures
