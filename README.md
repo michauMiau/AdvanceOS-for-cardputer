@@ -77,8 +77,8 @@ How to format to FAT https://www.instructables.com/Format-USB-Flash-Drive-to-FAT
 - FN + Up Arrow : scroll text
 - FN + Down Arrow : scroll text
 - ESC open Menu
-# in painter  BETA only BMP file(24 BIT only)
-- Arrows move courser
+# in painter  only BMP file(24 BIT only)
+- Arrows move courser, Hold FN to move slower,
 - ESC open menu (you can see al shortcut in this menu)
 - ENTER Paint / Accept in menu
 - +/- change brush size
