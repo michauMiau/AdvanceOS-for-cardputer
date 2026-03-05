@@ -15,9 +15,9 @@ void Notes::Begin()
 
 void Notes::Loop()
 {
-        if (mainOS->NewKey.ifKeyJustPress('`')) 
+    if (mainOS->NewKey.ifKeyJustPress('`'))
     {
-    mainOS->ChangeMenu(new MainMenu(mainOS));
+        mainOS->ChangeMenu(new MainMenu(mainOS));
         return;
     }
 
@@ -66,9 +66,11 @@ void Notes::Loop()
     if (mainOS->NewKey.ifKeyJustPress(KEY_BACKSPACE)) // delete current note
     {
         mainOS->PlayCuteEvilTone();
-
-        mainOS->deleteFromSd(SD, NodesInSD[InNoteIDselect].NotePath);
-        SetNotesVariable();
+        if (mainOS->AskSomthing("Are you sure you want to delete this note?"))
+        {
+            mainOS->deleteFromSd(SD, NodesInSD[InNoteIDselect].NotePath);
+            SetNotesVariable();
+        }
     }
     if (mainOS->NewKey.ifKeyJustPress(KEY_ENTER)) // edit current note
 

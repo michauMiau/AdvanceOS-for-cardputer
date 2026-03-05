@@ -34,6 +34,8 @@ public:
             "Calculator",
             "GPIO Control",
             "MIC Record to SD Card",
+            "Password Vault",
+           /*  "Cardputer To Disk On Key", */
             "Partition Viewer",
             "Wifi Spectrum",
             

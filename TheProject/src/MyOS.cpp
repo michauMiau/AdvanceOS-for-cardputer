@@ -20,8 +20,8 @@ Preferences prefsForRestart;
 #include "Pic/logo.cpp"
 
 //  Stteper Variable
-static elapsedMillis sampleTimer;             
-static elapsedMillis debounceTimer;           
+static elapsedMillis sampleTimer;
+static elapsedMillis debounceTimer;
 static const uint32_t SAMPLE_INTERVAL = 50;   // every 50ms ≈ 20Hz
 static const uint32_t STEP_DEBOUNCE_MS = 300; // prevent double-tap
 
@@ -37,8 +37,8 @@ static const float STEP_THRESHOLD = 1.0;
 
 String getHeapInfoKB()
 {
-    uint32_t total = ESP.getHeapSize(); 
-    uint32_t free = ESP.getFreeHeap(); 
+    uint32_t total = ESP.getHeapSize();
+    uint32_t free = ESP.getFreeHeap();
     uint32_t used = total - free;
 
     String s;
@@ -47,7 +47,6 @@ String getHeapInfoKB()
     // s += "Heap Free : " + String(free  / 1024) + " KB";
     return s;
 }
-
 
 bool MyOS::AskSomthing(String Question)
 {
@@ -96,7 +95,7 @@ bool MyOS::AskSomthing(String Question)
     return theAnswer;
 }
 
-String MyOS::AskFromUserForString(String Question, bool NoSpecialChar)
+/* String MyOS::AskFromUserForString(String Question, bool NoSpecialChar,bool PasswordMode)
 {
     String UserInput = "";
     bool Finished = false;
@@ -128,10 +127,7 @@ String MyOS::AskFromUserForString(String Question, bool NoSpecialChar)
             {
                 Keyboard_Class::KeysState status = M5Cardputer.Keyboard.keysState();
 
-       /*          if (status.enter)
-                {
-                    Finished = true;
-                } */
+
                  if (status.del && UserInput.length() > 0)
                 {
                     UserInput.remove(UserInput.length() - 1);
@@ -141,7 +137,7 @@ String MyOS::AskFromUserForString(String Question, bool NoSpecialChar)
                 {
                     if (NoSpecialChar)
                     {
-        
+
                         if (isAlphaNumeric(i) || i == '_' || i == '-' || i == ' ')
                         {
                             UserInput += i;
@@ -162,6 +158,92 @@ String MyOS::AskFromUserForString(String Question, bool NoSpecialChar)
     }
 
     return UserInput;
+} */
+
+String MyOS::AskFromUserForString(String Question, bool NoSpecialChar, bool PasswordMode)
+{
+    String UserInput = "";
+    bool Finished = false;
+
+    while (!Finished)
+    {
+        M5Cardputer.update();
+
+        sprite.createSprite(240, 135 - TopBarYsize);
+        sprite.fillSprite(ORANGE);
+        sprite.unloadFont();
+        sprite.setTextSize(1);
+        sprite.setTextColor(BLACK);
+        sprite.setCursor(10, 5);
+        sprite.print(Question);
+        sprite.drawRect(5, 45, 230, 30, BLACK);
+
+        // --- Password Mode Logic ---
+        sprite.setCursor(10, 55);
+        if (PasswordMode)
+        {
+            String masked = "";
+            for (int i = 0; i < UserInput.length(); i++)
+            {
+                masked += "*";
+            }
+            sprite.print(masked + "_");
+        }
+        else
+        {
+            sprite.print(UserInput + "_");
+        }
+        // ---------------------------
+
+        sprite.setCursor(10, 85);
+        sprite.setTextColor(BLUE);
+        sprite.print("Press ENTER to confirm");
+        sprite.pushSprite(0, TopBarYsize);
+        sprite.deleteSprite();
+
+        if (M5Cardputer.Keyboard.isChange())
+        {
+            if (M5Cardputer.Keyboard.isPressed())
+            {
+                Keyboard_Class::KeysState status = M5Cardputer.Keyboard.keysState();
+
+                if (status.del && UserInput.length() > 0)
+                {
+                    UserInput.remove(UserInput.length() - 1);
+                }
+
+                for (auto i : status.word)
+                {
+                    if (NoSpecialChar)
+                    {
+                        if (isAlphaNumeric(i) || i == '_' || i == '-' || i == ' ')
+                        {
+                            UserInput += i;
+                        }
+                    }
+                    else
+                    {
+                        UserInput += i;
+                    }
+                }
+            }
+        }
+
+        if (NewKey.ifKeyJustPress(KEY_ENTER))
+        {
+            if (UserInput.isEmpty())
+            {
+                ShowOnScreenMessege("Entry Empty!");
+            }
+            else
+            {
+                Finished = true;
+            }
+        }
+        delay(10);
+    }
+
+    return UserInput;
 }
 int MyOS::AskForColor(String Question, uint16_t DefaultColor)
 {
@@ -174,9 +256,9 @@ int MyOS::AskForColor(String Question, uint16_t DefaultColor)
     g = (g * 255) / 63;
     b = (b * 255) / 31;
 
-    //color (Presets)
-    uint16_t presetColors[] = {RED, YELLOW, BLUE, PURPLE, WHITE, BLACK,MAROON,GREEN,BROWN,PINK};
-    char* presetLabels[] = {"1", "2", "3", "4", "5", "6","7","8","9","0"};
+    // color (Presets)
+    uint16_t presetColors[] = {RED, YELLOW, BLUE, PURPLE, WHITE, BLACK, MAROON, GREEN, BROWN, PINK};
+    char *presetLabels[] = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "0"};
 
     int selectedBar = 0;
     bool confirmed = false;
@@ -198,7 +280,8 @@ int MyOS::AskForColor(String Question, uint16_t DefaultColor)
         uint8_t *values[3] = {&r, &g, &b};
         uint16_t barColors[3] = {RED, GREEN, BLUE};
 
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < 3; i++)
+        {
             int y = 25 + (i * 20);
             sprite.setTextColor(i == selectedBar ? YELLOW : WHITE, BLACK);
             sprite.setCursor(5, y);
@@ -209,30 +292,33 @@ int MyOS::AskForColor(String Question, uint16_t DefaultColor)
             sprite.fillRect(71, y + 1, (int)(*values[i] * 0.6), 10, barColors[i]);
         }
 
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 10; i++)
+        {
             int xPos = 2 + (i * 21);
             int yPos = 80;
             sprite.fillRect(xPos, yPos, 18, 12, presetColors[i]);
-            sprite.drawRect(xPos, yPos, 18, 12, WHITE); 
-            
+            sprite.drawRect(xPos, yPos, 18, 12, WHITE);
+
             sprite.setTextColor(WHITE, BLACK);
             sprite.setCursor(xPos + 6, yPos - 10);
             sprite.print(presetLabels[i]);
         }
-sprite.setCursor(10,100);
-sprite.print("Press Arrows to select ENTER To Select");
-   /*      char hexBuf[10];
-        sprintf(hexBuf, "#%02X%02X%02X", r, g, b);
-        sprite.setTextColor(WHITE, BLACK);
-        sprite.setCursor(10, 85);
-        sprite.printf("HEX: %s  INT: %d", hexBuf, currentColor);
- */
+        sprite.setCursor(10, 100);
+        sprite.print("Press Arrows to select ENTER To Select");
+        /*      char hexBuf[10];
+             sprintf(hexBuf, "#%02X%02X%02X", r, g, b);
+             sprite.setTextColor(WHITE, BLACK);
+             sprite.setCursor(10, 85);
+             sprite.printf("HEX: %s  INT: %d", hexBuf, currentColor);
+      */
         sprite.pushSprite(0, TopBarYsize);
         sprite.deleteSprite();
 
         // input hanlde
-        for (int i = 0; i < 10; i++) {
-            if (NewKey.ifKeyJustPress('1' + i)) {
+        for (int i = 0; i < 10; i++)
+        {
+            if (NewKey.ifKeyJustPress('1' + i))
+            {
                 uint16_t pCol = presetColors[i];
                 r = ((pCol >> 11) & 0x1F) * 255 / 31;
                 g = ((pCol >> 5) & 0x3F) * 255 / 63;
@@ -240,19 +326,24 @@ sprite.print("Press Arrows to select ENTER To Select");
             }
         }
 
-        if (NewKey.ifKeyJustPress('.')) selectedBar = (selectedBar + 1) % 3;
-        if (NewKey.ifKeyJustPress(';')) selectedBar = (selectedBar - 1 + 3) % 3;
+        if (NewKey.ifKeyJustPress('.'))
+            selectedBar = (selectedBar + 1) % 3;
+        if (NewKey.ifKeyJustPress(';'))
+            selectedBar = (selectedBar - 1 + 3) % 3;
 
         uint8_t *currentVal = values[selectedBar];
-        if (NewKey.Key_Press_1_Click_And_After_Few_MS_RepeatClick('/', 200, 1)) {
+        if (NewKey.Key_Press_1_Click_And_After_Few_MS_RepeatClick('/', 200, 1))
+        {
             *currentVal = (*currentVal < 251) ? *currentVal + 5 : 255;
         }
-        if (NewKey.Key_Press_1_Click_And_After_Few_MS_RepeatClick(',', 200, 1)) {
+        if (NewKey.Key_Press_1_Click_And_After_Few_MS_RepeatClick(',', 200, 1))
+        {
             *currentVal = (*currentVal > 4) ? *currentVal - 5 : 0;
         }
 
-        if (NewKey.ifKeyJustPress(KEY_ENTER)) confirmed = true;
-        
+        if (NewKey.ifKeyJustPress(KEY_ENTER))
+            confirmed = true;
+
         delay(5);
     }
 
@@ -262,11 +353,9 @@ sprite.print("Press Arrows to select ENTER To Select");
 void MyOS::begin()
 {
 
-
-
     // app load code
     prefsForRestart.begin("app", true);
-    LastAppInstalledPath = prefsForRestart.getString("AppLoadedPath", ""); 
+    LastAppInstalledPath = prefsForRestart.getString("AppLoadedPath", "");
     TryToRunApp = prefsForRestart.getBool("TryToRunApp", false);
     RunAppSucsses = prefsForRestart.getBool("RunAppSucsses", false);
     prefsForRestart.end();
@@ -628,7 +717,6 @@ void MyOS::LoadTheme(String path, bool SetAsDefault)
     MENU_4_PAINT_COLOR_1 = doc["MENU_4_PAINT_COLOR_1"] | 0xFE00;
     MENU_4_PAINT_COLOR_2 = doc["MENU_4_PAINT_COLOR_2"] | 0x012C;
 
-
     MENU_5_EXTRA_COLOR_1 = doc["MENU_5_EXTRA_COLOR_1"] | 0x0002;
     MENU_5_EXTRA_COLOR_2 = doc["MENU_5_EXTRA_COLOR_2"] | 0xFE80;
 
@@ -684,8 +772,8 @@ bool MyOS::SaveCurrentTheme(String Custom_path)
     Theme["MENU_4_NOTES_COLOR_1"] = MENU_4_NOTES_COLOR_1;
     Theme["MENU_4_NOTES_COLOR_2"] = MENU_4_NOTES_COLOR_2;
 
-      Theme["MENU_4_PAINT_COLOR_1"] =MENU_4_PAINT_COLOR_1;
-      Theme["MENU_4_PAINT_COLOR_2"]=MENU_4_PAINT_COLOR_2;
+    Theme["MENU_4_PAINT_COLOR_1"] = MENU_4_PAINT_COLOR_1;
+    Theme["MENU_4_PAINT_COLOR_2"] = MENU_4_PAINT_COLOR_2;
 
     Theme["MENU_5_EXTRA_COLOR_1"] = MENU_5_EXTRA_COLOR_1;
     Theme["MENU_5_EXTRA_COLOR_2"] = MENU_5_EXTRA_COLOR_2;
@@ -733,8 +821,8 @@ void MyOS::ResetToDefaultTheme()
 
     MENU_4_NOTES_COLOR_1 = 0x7006;
     MENU_4_NOTES_COLOR_2 = 0xE10C;
-MENU_4_PAINT_COLOR_1= 0xFE00;
-MENU_4_PAINT_COLOR_2= 0x012C;
+    MENU_4_PAINT_COLOR_1 = 0xFE00;
+    MENU_4_PAINT_COLOR_2 = 0x012C;
     MENU_5_EXTRA_COLOR_1 = 0x0002;
     MENU_5_EXTRA_COLOR_2 = 0xFE80;
 
@@ -830,7 +918,7 @@ void MyOS::UpdateTopBar()
     }
     int HalfTopBar = TopBarYsize / 2;
 
-    TopBarSprite.createSprite(240, TopBarYsize); 
+    TopBarSprite.createSprite(240, TopBarYsize);
     TopBarSprite.fillRect(0, 0, 240, HalfTopBar, TOP_BAR_COLOR_1);
     TopBarSprite.fillRect(0, HalfTopBar, 240, HalfTopBar, TOP_BAR_COLOR_2);
 
@@ -849,7 +937,7 @@ void MyOS::UpdateTopBar()
     // batary sector
     if (BatteryUpdateTimer > 20)
     {
-        batteryPercent = M5Cardputer.Power.getBatteryLevel(); 
+        batteryPercent = M5Cardputer.Power.getBatteryLevel();
         BatteryUpdateTimer = 0;
     }
     int vXb = 227;
@@ -1166,7 +1254,7 @@ void MyOS::SetFastBootVar(int nom) // save var to fareware to survive restart
 int MyOS::loadFastBootVar() // load var after restart
 {
     prefsForRestart.begin("app", true);
-    int v = prefsForRestart.getInt("BootTo", 0); 
+    int v = prefsForRestart.getInt("BootTo", 0);
     prefsForRestart.end();
     return v;
 }
@@ -1408,8 +1496,6 @@ bool MyOS::deleteFromSd(FS fs, String path)
 
     return success;
 }
-
-
 
 bool MyOS::saveScreenshot(String fileName)
 {

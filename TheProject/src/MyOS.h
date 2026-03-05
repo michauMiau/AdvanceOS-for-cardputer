@@ -34,7 +34,7 @@ bool saveScreenshot(String fileName);
 bool DeleteMusicPlayer=false;
 bool EditImageFromFile=false;
 bool AskSomthing(String Question);
-String AskFromUserForString(String Question,bool NoSpecialChar=true);
+String AskFromUserForString(String Question,bool NoSpecialChar=true,bool PasswordMode=false);
 int AskForColor(String Question, uint16_t DefaultColor= WHITE);
 
 

@@ -52,6 +52,7 @@ void Show_BMP_picture(String fileName);
 
 
 private:
+void EmulateSdCardAsUSB();
 void RefrashImage();
 
     enum class CurrentlyImageOpen
@@ -59,6 +60,7 @@ void RefrashImage();
         GIF,
         JPG,
         PNG,
+        USB,
     };
     CurrentlyImageOpen CurrentImageOpenType;
 

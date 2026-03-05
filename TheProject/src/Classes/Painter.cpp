@@ -1337,7 +1337,7 @@ void Painter::HandleMenuInput()
 
 void Painter::SavePic(bool Exit, bool forceNewFile)
 {
-
+menuOpen=false;
     if (PaintFromFile && forceNewFile == false)
     {
         bool success = saveBMP(mainOS->FileSelectedInFS.c_str(), PixelsArray, PicSizeX, PicSizeY);

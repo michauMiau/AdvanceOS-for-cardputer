@@ -20,13 +20,14 @@
 #include "wifiSpectrum.h"
 #endif
 // #include "Arduboy/ArduboyGamesController.h"
-
+#include "PasswordVault.h"
 #if defined(COMPILE_EMULATOR)
 #include "Emulator/Emulator.h"
 #endif
 #include "Theme_Maneger.h"
 #include "MainMenu.h"
 #include "painter.h"
+// #include "SD_To_DiskOnKey.h"
 void Extra::Begin()
 {
     SlectedString = &menuItems;
@@ -54,123 +55,135 @@ void Extra::Loop()
         if (MenuIdFocus > SlectedString->size() - 1)
             MenuIdFocus = 0;
         targetCameraY = MenuIdFocus * DistanceBetweenTXT;
-        if (mainOS->NewKey.ifKeyJustPress(';'))
+    }
+    if (mainOS->NewKey.ifKeyJustPress(';'))
 
-        // if (M5Cardputer.Keyboard.isKeyPressed(';'))
+    // if (M5Cardputer.Keyboard.isKeyPressed(';'))
+    {
+        MenuIdFocus--;
+        if (MenuIdFocus < 0)
+            MenuIdFocus = SlectedString->size() - 1;
+        targetCameraY = MenuIdFocus * DistanceBetweenTXT;
+    }
+    if (mainOS->NewKey.ifKeyJustPress(KEY_ENTER))
+
+    //  if (M5Cardputer.Keyboard.isKeyPressed(KEY_ENTER))
+    {
+        if ((*SlectedString)[MenuIdFocus] == "Step's Counter")
         {
-            MenuIdFocus--;
-            if (MenuIdFocus < 0)
-                MenuIdFocus = SlectedString->size() - 1;
-            targetCameraY = MenuIdFocus * DistanceBetweenTXT;
+            mainOS->ChangeMenu(new StepCounter(mainOS));
+            // MenuIdFocus = 0;
         }
-        if (mainOS->NewKey.ifKeyJustPress(KEY_ENTER))
-
-        //  if (M5Cardputer.Keyboard.isKeyPressed(KEY_ENTER))
+        else if ((*SlectedString)[MenuIdFocus] == "Timer")
         {
-            if ((*SlectedString)[MenuIdFocus] == "Step's Counter")
-            {
-                mainOS->ChangeMenu(new StepCounter(mainOS));
-                // MenuIdFocus = 0;
-            }
-            else if ((*SlectedString)[MenuIdFocus] == "Timer")
-            {
-                mainOS->ChangeMenu(new Timer(mainOS));
-            }
-            else if ((*SlectedString)[MenuIdFocus] == "GPIO Control")
-            {
-                mainOS->ChangeMenu(new GPIOcontrol(mainOS));
-            }
-            else if ((*SlectedString)[MenuIdFocus] == "Calculator")
-            {
-                mainOS->ChangeMenu(new Calculator(mainOS));
-            }
+            mainOS->ChangeMenu(new Timer(mainOS));
+        }
+        else if ((*SlectedString)[MenuIdFocus] == "GPIO Control")
+        {
+            mainOS->ChangeMenu(new GPIOcontrol(mainOS));
+        }
+        else if ((*SlectedString)[MenuIdFocus] == "Calculator")
+        {
+            mainOS->ChangeMenu(new Calculator(mainOS));
+        }
 
-            else if ((*SlectedString)[MenuIdFocus] == "MIC Record to SD Card")
-            {
-                mainOS->SetFastBootVar(6);
-                ESP.restart();
-                //  mainOS->ChangeMenu(new RecordTest(mainOS));
-                mainOS->ChangeMenu(new RecordV2(mainOS));
-            }
-            else if ((*SlectedString)[MenuIdFocus] == "WIFI")
-            {
-                mainOS->ChangeMenu(new Wifi_handle(mainOS));
-            }
-            /*         else if ((*SlectedString)[MenuIdFocus] == "Volos Resistor Calculator")
-                    {
-                        mainOS->ChangeMenu(new ResistorCalc(mainOS));
-                    } */
-            else if ((*SlectedString)[MenuIdFocus] == "Esp Projects Remote Control")
-            {
-                /*        mainOS->SetFastBootVar(3);
-                       ESP.restart(); */
+        else if ((*SlectedString)[MenuIdFocus] == "MIC Record to SD Card")
+        {
+            mainOS->SetFastBootVar(6);
+            ESP.restart();
+            //  mainOS->ChangeMenu(new RecordTest(mainOS));
+            mainOS->ChangeMenu(new RecordV2(mainOS));
+        }
+        else if ((*SlectedString)[MenuIdFocus] == "WIFI")
+        {
+            mainOS->ChangeMenu(new Wifi_handle(mainOS));
+        }
+        /*         else if ((*SlectedString)[MenuIdFocus] == "Volos Resistor Calculator")
+                {
+                    mainOS->ChangeMenu(new ResistorCalc(mainOS));
+                } */
+        else if ((*SlectedString)[MenuIdFocus] == "Password Vault")
+        {
+
+            mainOS->ChangeMenu(new PasswordVault(mainOS));
+        }
+
+        else if ((*SlectedString)[MenuIdFocus] == "Esp Projects Remote Control")
+        {
+            /*        mainOS->SetFastBootVar(3);
+                   ESP.restart(); */
 #if defined(COMPILE_WIFI_THINGS)
 
-                mainOS->ChangeMenu(new EspProjectRemoteControl(mainOS));
+            mainOS->ChangeMenu(new EspProjectRemoteControl(mainOS));
 #endif
-            }
-            else if ((*SlectedString)[MenuIdFocus] == "emulator")
-            {
-                mainOS->SetFastBootVar(5);
-                ESP.restart();
+        }
+        else if ((*SlectedString)[MenuIdFocus] == "emulator")
+        {
+            mainOS->SetFastBootVar(5);
+            ESP.restart();
 
 #if defined(COMPILE_EMULATOR)
-                mainOS->ChangeMenu(new Emulator(mainOS));
+            mainOS->ChangeMenu(new Emulator(mainOS));
 #endif
-            }
-            else if ((*SlectedString)[MenuIdFocus] == "Color Picker")
-            {
-                mainOS->ChangeMenu(new ColorPicker(mainOS));
-            }
-            else if ((*SlectedString)[MenuIdFocus] == "ESPnow Chat")
-            {
-                mainOS->ChangeMenu(new ESPnowChat(mainOS));
-            }
-            else if ((*SlectedString)[MenuIdFocus] == "Wifi Spectrum")
-            {
-                mainOS->ChangeMenu(new wifiSpectrum(mainOS));
-            }
-            else if ((*SlectedString)[MenuIdFocus] == "Theme Manager")
-            {
-                mainOS->ChangeMenu(new Theme_Maneger(mainOS));
-            }
-            else if ((*SlectedString)[MenuIdFocus] == "Painter")
-            {
-                mainOS->ChangeMenu(new Painter(mainOS));
-                return;
-            }
-
-            else if ((*SlectedString)[MenuIdFocus] == "(NOT) AI Chatbot (not Work Well)")
-            {
-                //   mainOS->ChangeMenu(new Boty(mainOS));
-
-                mainOS->SetFastBootVar(3);
-                // mainOS->saveSettings();
-                ESP.restart();
-                /*      esp_sleep_enable_timer_wakeup(10 * 1000); // 10ms = 10,000µs
-                 esp_light_sleep_start(); */
-            }
-
-            else if ((*SlectedString)[MenuIdFocus] == "Partition Viewer")
-            {
-                mainOS->ChangeMenu(new partition_maneger(mainOS));
-            }
-            else if ((*SlectedString)[MenuIdFocus] == "GameV2")
-            {
-                mainOS->ChangeMenu(new GamesV2(mainOS));
-            }
         }
-        // }
-
-        float finalCameraYPos = MenuIdFocus * DistanceBetweenTXT;
-        cameraY = cameraY + (targetCameraY - cameraY) * 0.12f;
-        if (!mainOS->screenOff)
-
+        else if ((*SlectedString)[MenuIdFocus] == "Color Picker")
         {
-            Draw();
+            mainOS->ChangeMenu(new ColorPicker(mainOS));
+        }
+        else if ((*SlectedString)[MenuIdFocus] == "ESPnow Chat")
+        {
+            mainOS->ChangeMenu(new ESPnowChat(mainOS));
+        }
+        else if ((*SlectedString)[MenuIdFocus] == "Wifi Spectrum")
+        {
+            mainOS->ChangeMenu(new wifiSpectrum(mainOS));
+        }
+        else if ((*SlectedString)[MenuIdFocus] == "Theme Manager")
+        {
+            mainOS->ChangeMenu(new Theme_Maneger(mainOS));
+        }
+        else if ((*SlectedString)[MenuIdFocus] == "Cardputer To Disk On Key")
+        {
+            // mainOS->ChangeMenu(new SD_To_DiskOnKey(mainOS));
+        }
+
+        else if ((*SlectedString)[MenuIdFocus] == "Painter")
+        {
+            mainOS->ChangeMenu(new Painter(mainOS));
+            return;
+        }
+
+        else if ((*SlectedString)[MenuIdFocus] == "(NOT) AI Chatbot (not Work Well)")
+        {
+            //   mainOS->ChangeMenu(new Boty(mainOS));
+
+            mainOS->SetFastBootVar(3);
+            // mainOS->saveSettings();
+            ESP.restart();
+            /*      esp_sleep_enable_timer_wakeup(10 * 1000); // 10ms = 10,000µs
+             esp_light_sleep_start(); */
+        }
+
+        else if ((*SlectedString)[MenuIdFocus] == "Partition Viewer")
+        {
+            mainOS->ChangeMenu(new partition_maneger(mainOS));
+        }
+        else if ((*SlectedString)[MenuIdFocus] == "GameV2")
+        {
+            mainOS->ChangeMenu(new GamesV2(mainOS));
         }
     }
+    // }
+
+    float finalCameraYPos = MenuIdFocus * DistanceBetweenTXT;
+    cameraY = cameraY + (targetCameraY - cameraY) * 0.12f;
+    if (!mainOS->screenOff)
+
+    {
+        Draw();
+    }
 }
+
 void Extra::Draw()
 {
     const int HEADER_H = 18;

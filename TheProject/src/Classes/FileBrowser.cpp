@@ -21,7 +21,79 @@
 #include "GamesV2.h"
 #include <Preferences.h>
 #include "Theme_Maneger.h"
-    #include "Painter.h"
+#include "Painter.h"
+/* #include <USB.h>
+#include <USBMSC.h>
+USBMSC msc;
+void drawLedIndicator(bool plugged)
+{
+    M5.Lcd.fillRoundRect(54, 60, 5, 30, 5, plugged ? GREEN : RED);
+}
+void displayMessage(std::string message)
+{
+    M5.Lcd.fillRect(63, 28, 10, 17, TFT_BLACK);
+    M5.Lcd.setCursor(66, 30);
+    M5.Lcd.print(message.c_str());
+}
+int32_t usbWriteCallback(uint32_t lba, uint32_t offset, uint8_t *buffer, uint32_t bufsize)
+{
+    // Verify freespace
+    uint64_t freeSpace = SD.totalBytes() - SD.usedBytes();
+    if (bufsize > freeSpace)
+    {
+        return -1; // no space available
+    }
+
+    // Verify sector size
+    const uint32_t secSize = SD.sectorSize();
+    if (secSize == 0)
+        return -1; // disk error
+
+    // Write blocs
+    for (uint32_t x = 0; x < bufsize / secSize; ++x)
+    {
+        uint8_t blkBuffer[secSize];
+        memcpy(blkBuffer, buffer + secSize * x, secSize);
+        if (!SD.writeRAW(blkBuffer, lba + x))
+        {
+            return -1; // write error
+        }
+    }
+    return bufsize;
+}
+
+int32_t usbReadCallback(uint32_t lba, uint32_t offset, void *buffer, uint32_t bufsize)
+{
+    // Verify sector size
+    const uint32_t secSize = SD.sectorSize();
+    if (secSize == 0)
+        return -1; // disk error
+
+    // Read blocs
+    for (uint32_t x = 0; x < bufsize / secSize; ++x)
+    {
+        if (!SD.readRAW(reinterpret_cast<uint8_t *>(buffer) + (x * secSize), lba + x))
+        {
+            return -1; // read error
+        }
+    }
+    return bufsize;
+}
+
+bool usbStartStopCallback(uint8_t power_condition, bool start, bool load_eject)
+{
+    return true;
+}
+void drawUSBStickIcon()
+{
+    // Port USB
+    M5.Lcd.fillRoundRect(155, 55, 40, 40, 5, LIGHTGREY);
+    // Body
+    M5.Lcd.fillRoundRect(45, 50, 112, 50, 5, DARKCYAN);
+    // Small square on port
+    M5.Lcd.fillRoundRect(164, 63, 20, 10, 5, DARKGREY);
+    M5.Lcd.fillRoundRect(164, 78, 20, 10, 5, DARKGREY);
+} */
 
 Preferences prefs;
 
@@ -38,7 +110,6 @@ void installTempBin(String binPath)
 
     size_t fileSize = binFile.size();
     Serial.printf("Starting update from %s, size: %d bytes\n", binPath.c_str(), fileSize);
-
 
     if (!Update.begin(fileSize, U_FLASH))
     {
@@ -65,7 +136,6 @@ void installTempBin(String binPath)
     binFile.close();
     Serial.println("Update success! Setting temporary boot partition...");
 
- 
     esp_partition_t temp_part;
     temp_part.type = ESP_PARTITION_TYPE_APP;
     temp_part.subtype = ESP_PARTITION_SUBTYPE_APP_OTA_0;
@@ -84,7 +154,6 @@ void installTempBin(String binPath)
     delay(1000);
     ESP.restart();
 }
-
 
 AnimatedGIF gif;
 File f;
@@ -110,7 +179,7 @@ void drawJpeg(const char *filename)
         int dstW = srcW / scale;
         int dstH = srcH / scale;
 
-        static uint16_t lineBuf[240]; 
+        static uint16_t lineBuf[240];
 
         for (int y = 0; y < dstH; y++)
         {
@@ -228,7 +297,7 @@ void FileBrowser::UndrawPic()
 
 void FileBrowser::Begin()
 {
-    // handleRunOnceRollback(); 
+    // handleRunOnceRollback();
 
     if (BrowseLittleFS)
     {
@@ -248,7 +317,6 @@ void FileBrowser::Loop()
     {
         return;
     }
-
 
     if (mainOS->NewKey.Key_Press_1_Click_And_After_Few_MS_RepeatClick(';', 700, 50))
 
@@ -370,7 +438,7 @@ void FileBrowser::Loop()
         }
     }
 
-    // ESC 
+    // ESC
     if (mainOS->NewKey.ifKeyJustPress('`'))
     {
         mainOS->PlayCuteEvilTone();
@@ -453,20 +521,19 @@ void FileBrowser::Loop()
                         return;
                     gif.open(
                         GifPathToPlay.c_str(),
-                        GIFOpenFile,          
-                        GIFCloseFile,         
-                        GIFReadFile,          
-                        GIFSeekFile,          
-                        GIFDraw               
-                    );
+                        GIFOpenFile,
+                        GIFCloseFile,
+                        GIFReadFile,
+                        GIFSeekFile,
+                        GIFDraw);
                     gifLoopVar = true;
                 }
 
                 // M5Cardputer.Display.fillScreen(BLACK);
                 if (!gif.playFrame(true, NULL))
                 {
-                    gif.close();  
-                    gifLoopVar = false; 
+                    gif.close();
+                    gifLoopVar = false;
                     gifFile.close();
                 }
 
@@ -603,7 +670,7 @@ void FileBrowser::Draw()
                         lastMove = millis();
                     }
                 }
-                else if (millis() - lastMove >= 150) 
+                else if (millis() - lastMove >= 150)
                 {
                     offset += dir;
 
@@ -658,7 +725,7 @@ void FileBrowser::Draw()
     mainOS->sprite.setTextColor(ORANGE);
 
     String PathName = mainOS->currentPath;
-    int maxChars = SCREEN_W / (6 * mainOS->TextSizeInMenuesSAVE); 
+    int maxChars = SCREEN_W / (6 * mainOS->TextSizeInMenuesSAVE);
     static int offsetPath = 0;
     static int dirPath = 1;
     static uint32_t lastMovePath = 0;
@@ -675,7 +742,7 @@ void FileBrowser::Draw()
                 lastMovePath = millis();
             }
         }
-        else if (millis() - lastMovePath >= 200) 
+        else if (millis() - lastMovePath >= 200)
         {
             offsetPath += dirPath;
             if (offsetPath <= 0 || offsetPath >= PathName.length() - maxChars)
@@ -699,8 +766,8 @@ void FileBrowser::Draw()
 
     // end file path
     // --- Scroll Bar ---
-    mainOS->sprite.fillRect(SCREEN_W - 6, 0, 6, SCREEN_H, DARKGREY); 
-    if (fileCount > visibleCount)                                   
+    mainOS->sprite.fillRect(SCREEN_W - 6, 0, 6, SCREEN_H, DARKGREY);
+    if (fileCount > visibleCount)
     {
         int barHeight = (visibleCount * (SCREEN_H - TopOffset)) / fileCount;
         int firstVisibleIndex = cameraYpos / (mainOS->sprite.fontHeight() + OffsetBetweenLines);
@@ -708,7 +775,7 @@ void FileBrowser::Draw()
 
         barY = constrain(barY, 0, (SCREEN_H - TopOffset) - barHeight);
 
-        int barX = SCREEN_W - 6;                                  
+        int barX = SCREEN_W - 6;
         mainOS->sprite.fillRect(barX, barY, 5, barHeight, ORANGE);
     }
     // draw menu if visable
@@ -723,7 +790,7 @@ void FileBrowser::Draw()
 
 void FileBrowser::Mark_UnmarkFile()
 {
-    const String &id = FileFound[mainOS->FileIndexSelected]; 
+    const String &id = FileFound[mainOS->FileIndexSelected];
 
     auto it = std::find(File_ID_Marked.begin(),
                         File_ID_Marked.end(),
@@ -811,7 +878,6 @@ void FileBrowser::DrawFileOptionMenu()
 
     mainOS->sprite.setTextColor(YELLOW);
 }
-
 
 bool FileBrowser::hasExtension(const char *filename, const char *ext)
 {
@@ -959,8 +1025,8 @@ String FileBrowser::createFolder(fs::FS &fs, const String &parentFolder, const S
         }
 
         if (fs.mkdir(path))
-            return path; 
-        return "";       
+            return path;
+        return "";
     }
 }
 
@@ -1089,7 +1155,7 @@ String FileBrowser::MakeUniquePath(fs::FS &fs, const String &dstPath)
     return newPath;
 }
 
- void FileBrowser::Show_BMP_picture(String fileName)// only 24 bit
+void FileBrowser::Show_BMP_picture(String fileName) // only 24 bit
 {
     File bmpFile = SD.open(fileName, FILE_READ);
     if (!bmpFile)
@@ -1136,7 +1202,53 @@ String FileBrowser::MakeUniquePath(fs::FS &fs, const String &dstPath)
 
     M5.Lcd.endWrite();
     bmpFile.close();
-} 
+}
+/* 
+void FileBrowser::EmulateSdCardAsUSB()
+{
+    // USB MSC
+                CurrentImageOpenType = CurrentlyImageOpen::USB;
+
+    M5Cardputer.Display.fillScreen(YELLOW);
+    uint32_t secSize = SD.sectorSize();
+    uint32_t numSectors = SD.numSectors();
+    msc.vendorID("ESP32");
+    msc.productID("USB_MSC");
+    msc.productRevision("1.0");
+    msc.onRead(usbReadCallback);
+    msc.onWrite(usbWriteCallback);
+    msc.onStartStop(usbStartStopCallback);
+    msc.mediaPresent(true);
+    msc.begin(numSectors, secSize);
+
+    USB.onEvent([](void *arg, esp_event_base_t event_base, int32_t event_id, void *event_data)
+                {
+    if (event_base == ARDUINO_USB_EVENTS) {
+      auto* data = reinterpret_cast<arduino_usb_event_data_t*>(event_data);
+      switch (event_id) {
+        case ARDUINO_USB_STARTED_EVENT:
+          drawLedIndicator(true);
+          break;
+        case ARDUINO_USB_STOPPED_EVENT:
+          drawLedIndicator(false);
+          break;
+        case ARDUINO_USB_SUSPEND_EVENT:
+          displayMessage("USB suspend");
+          break;
+        case ARDUINO_USB_RESUME_EVENT:
+          displayMessage("USB resume");
+          break;
+        default:
+          break;
+      }
+    } });
+
+    displayMessage("USB Stick is ready");
+    drawUSBStickIcon();
+    drawLedIndicator(false);
+    USB.begin();
+    ShowPicOnScreen = true;
+} */
 
 void FileBrowser::RefrashImage()
 {
@@ -1160,6 +1272,10 @@ void FileBrowser::RefrashImage()
         drawJpeg(FileFound[mainOS->FileIndexSelected].c_str());
 
         break;
+           case CurrentlyImageOpen::USB:
+        ESP.restart();
+
+        break;
     default:
         break;
     }
@@ -1171,7 +1287,6 @@ void FileBrowser::GoUpOneFolder()
         GlobalParentClass::BackToMainMenu();
         return;
     }
-
 
     int lastSlash = mainOS->currentPath.lastIndexOf('/', mainOS->currentPath.length() - 1);
 
@@ -1186,11 +1301,10 @@ void FileBrowser::GoUpOneFolder()
     }
     fileCount = 0;
 
-    
     if (!mainOS->folderIndexHistory.empty())
     {
-        mainOS->FileIndexSelected = mainOS->folderIndexHistory.back(); 
-        mainOS->folderIndexHistory.pop_back();                        
+        mainOS->FileIndexSelected = mainOS->folderIndexHistory.back();
+        mainOS->folderIndexHistory.pop_back();
     }
     else
     {
@@ -1242,7 +1356,7 @@ void FileBrowser::FileOfFolderSelected()
         {
             FileOptionMenuItems.push_back("Play In Player");
         }
-  
+
         else if (exte == "ard" || exte == "nes" || exte == "gb" || exte == "gbc")
         {
             FileOptionMenuItems.push_back("Play Game");
@@ -1330,6 +1444,7 @@ void FileBrowser::FileOfFolderSelected()
     FileOptionMenuItems.push_back("Toggle Mark File Mode");
 
     FileOptionMenuItems.push_back("Change Font Size");
+   // FileOptionMenuItems.push_back("Emulate SD card As Disk On key");
 
     OpenFileMenu();
 }
@@ -1361,16 +1476,15 @@ void FileBrowser::SelectMenuItem()
     }
     else if (FileOptionMenuItems[InFileOptionMenuIndex] == "Edit BMP Image")
     {
-         mainOS->ShowOnScreenMessege("Loading Image to paint",10);
+        mainOS->ShowOnScreenMessege("Loading Image to paint", 10);
 
         mainOS->FileSelectedInFS = FileFound[mainOS->FileIndexSelected];
 
-        mainOS->EditImageFromFile=true;
+        mainOS->EditImageFromFile = true;
         mainOS->ChangeMenu(new Painter(mainOS));
-        RenderFileOptionMenu=false;
+        RenderFileOptionMenu = false;
         return;
     }
-
 
     else if (FileOptionMenuItems[InFileOptionMenuIndex] == "Play Game")
     {
@@ -1424,8 +1538,6 @@ void FileBrowser::SelectMenuItem()
         mainOS->DeleteMusicPlayer = true;
         mainOS->FileSelectedInFS = FileFound[mainOS->FileIndexSelected];
         mainOS->ChangeMenu(new My3dRenderer(mainOS));
-
-   
     }
     else if (FileOptionMenuItems[InFileOptionMenuIndex] == "Mark/Unmark")
     {
@@ -1461,7 +1573,6 @@ void FileBrowser::SelectMenuItem()
             return;
 
         ESP.restart();
-
     }
     else if (FileOptionMenuItems[InFileOptionMenuIndex] == "Edit Text")
     {
@@ -1639,7 +1750,10 @@ void FileBrowser::SelectMenuItem()
             mainOS->saveSettings();
         }
     }
-
+/*     else if (FileOptionMenuItems[InFileOptionMenuIndex] == "Emulate SD card As Disk On key")
+    {
+        EmulateSdCardAsUSB();
+    } */
     else
     {
         ExecuteFileOrFolder();
