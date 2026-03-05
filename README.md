@@ -115,7 +115,7 @@ How to format to FAT https://www.instructables.com/Format-USB-Flash-Drive-to-FAT
 
 # in Password Vault
 - DEL delete entry
-- + Add Entry
+- Plus key to Add Entry
 
 # in 3D renderer
 * use file 3d file example from 3D_MODEL folder or create yourself in 3D software like BLENDER
