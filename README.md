@@ -113,6 +113,10 @@ How to format to FAT https://www.instructables.com/Format-USB-Flash-Drive-to-FAT
 - BETA press 1 for normal sound Equalizer (It's a bit jarring in the headphones), press 2 for soft sound Equalizer
 
 
+# in Password Vault
+- DEL delete entry
+- + Add Entry
+
 # in 3D renderer
 * use file 3d file example from 3D_MODEL folder or create yourself in 3D software like BLENDER
 * 1 key normal view press again to change beckground
@@ -135,6 +139,7 @@ How to format to FAT https://www.instructables.com/Format-USB-Flash-Drive-to-FAT
 - [x] mic record to SD card
 - [x] ESP project remote control see more info [here](https://github.com/bomberman30/AdvanceOS-for-cardputer/wiki)
 - [ ] radio (Maybe)
+- [x] Password Vault , Store all you password in encrypted file!! (if you want to reset the vault, you must delete the file inside "AdvanceOS/Vault" folder , it will delete the stored password's as well. so reamember your main vault password!!)
 - [x] IR Sender Put IR files in sd card and send via the cardputer you can find IR files [here](https://github.com/Lucaslhm/Flipper-IRDB)
 - [x] Screenshot press FN+S everywere to take screenshot (will be save in AdvaneOS folder)
 - [x] Custom theme you can create themes and select them ! enter extra menu-> theme manager You can add custom picture to every Menu download  TEST_TEHEME folder and put in SD card Activate it in file explorer, you can edit the PNG files as you like and edit the thm file via the cardputer itself
