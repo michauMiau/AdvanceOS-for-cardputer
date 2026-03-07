@@ -13,13 +13,13 @@ void Painter::Begin()
         LoadBMP_To_PixelsArray_var(mainOS->FileSelectedInFS);
         cursorX = PicSizeX / 2;
         cursorY = PicSizeY / 2;
-        Draw(); 
+        Draw();
         return;
     }
     cursorX = PicSizeX / 2;
     cursorY = PicSizeY / 2;
     SetPixelsArrayWHITE_Blank_canvas();
-    Draw(); 
+    Draw();
 }
 void Painter::Loop()
 {
@@ -53,7 +53,7 @@ void Painter::Loop()
             return;
         }
         menuOpen = !menuOpen;
-        Draw(); 
+        Draw();
         return;
     }
 
@@ -88,8 +88,8 @@ void Painter::Loop()
             case 2:
                 shapeFilled = !shapeFilled;
                 break;
-            case 3:                                                              
-                menuOpen = false;                                                 
+            case 3:
+                menuOpen = false;
                 currentColor = mainOS->AskForColor("choose color", currentColor);
                 Draw();
                 if (!menuOpen)
@@ -100,9 +100,9 @@ void Painter::Loop()
                 // String text_to_draw = mainOS->AskFromUserForString("Enter Text:", false);
                 menuOpen = false;
                 DrawTextToBuffer(mainOS->AskFromUserForString("Enter Text:", false), cursorX, cursorY, brushSize + 1);
-                Draw(); 
+                Draw();
                 if (!menuOpen)
-                    return; 
+                    return;
                 break;
             case 5: // only save
                 SavePic(false);
@@ -125,7 +125,7 @@ void Painter::Loop()
             Draw();
             DrawMenu();
         }
-        return; 
+        return;
     }
 
     if (mainOS->NewKey.ifKeyJustPress('p'))
@@ -169,7 +169,7 @@ void Painter::Loop()
         ShowQuickMessege("Draw mode TRIANGLE");
         SetShapeMode(TRIANGLE_MODE);
     }
-    if (mainOS->NewKey.ifKeyJustPress('i')) 
+    if (mainOS->NewKey.ifKeyJustPress('i'))
     {
         SetShapeMode(EYEDROPPER_MODE);
         messegeDebounce = 8000;
@@ -181,7 +181,7 @@ void Painter::Loop()
         if (text_to_draw != "")
         {
             DrawTextToBuffer(text_to_draw, cursorX, cursorY, brushSize + 1);
-            Draw(); 
+            Draw();
         }
     }
     if (mainOS->NewKey.ifKeyJustPress('c'))
@@ -289,7 +289,7 @@ void Painter::Draw()
     }
 
     Draw_PixelsArray_Var_toScreen();
-    DrawCursor(); 
+    DrawCursor();
 
     if (firstPointSet)
     {
@@ -370,8 +370,6 @@ void Painter::DrawMenu()
         "Reload Picture From File (A)",
         "Exit"};
 
-
-
     for (int i = 0; i < visibleItems; i++)
     {
         int itemIndex = scrollOffset + i;
@@ -394,7 +392,7 @@ void Painter::DrawMenu()
         {
             int swatchX = menuX + 110;
             M5.Lcd.fillRect(swatchX, itemY - 1, 15, 9, currentColor);
-            M5.Lcd.drawRect(swatchX - 1, itemY - 2, 17, 11, TFT_WHITE); 
+            M5.Lcd.drawRect(swatchX - 1, itemY - 2, 17, 11, TFT_WHITE);
         }
 
         M5.Lcd.setCursor(menuX + 10, itemY);
@@ -463,7 +461,7 @@ void Painter::ReloadPicture()
 
 int Painter::GetMoveTickDelay()
 {
-    if(M5Cardputer.Keyboard.isKeyPressed(KEY_FN))
+    if (M5Cardputer.Keyboard.isKeyPressed(KEY_FN))
     {
         return 40;
     }
@@ -648,6 +646,13 @@ void Painter::ResetShape()
 
 void Painter::SetShapeMode(ShapeMode mode)
 {
+    if (shapeMode == (ShapeMode)EYEDROPPER_MODE)
+    {
+        if (mode == (ShapeMode)EYEDROPPER_MODE)
+        {
+            return;
+        }
+    }// if eyedropper alredy choosen and the user choose again it will failed for after the eydroper pick color it will return ti old shape mode
     oldShapeMode = shapeMode;
     shapeMode = mode;
 
@@ -666,7 +671,7 @@ void Painter::HandleShapeLogic()
             messegeDebounce = 8000;
 
             ShowQuickMessege("Color Picked!");
-   
+
             shapeMode = oldShapeMode;
         }
     }
@@ -716,15 +721,15 @@ void Painter::HandleShapeLogic()
     {
         if (!firstPointSet)
         {
-            x1 = cursorX; 
+            x1 = cursorX;
             y1 = cursorY;
             firstPointSet = true;
             Draw();
         }
         else
         {
-            int rx = abs(cursorX - x1); 
-            int ry = abs(cursorY - y1); 
+            int rx = abs(cursorX - x1);
+            int ry = abs(cursorY - y1);
 
             DrawEllipseToBuffer(x1, y1, rx, ry);
             ResetShape();
@@ -794,7 +799,6 @@ void Painter::DrawCircleToBuffer(int cx, int cy, int r)
     }
     else
     {
-      
 
         int originalBrush = brushSize;
         brushSize = 0;
@@ -805,7 +809,7 @@ void Painter::DrawCircleToBuffer(int cx, int cy, int r)
             DrawLineToBuffer(cx - x, cy + y, cx + x, cy + y);
         }
 
-        brushSize = originalBrush; 
+        brushSize = originalBrush;
     }
 }
 
@@ -890,10 +894,10 @@ void Painter::DrawSquareToBuffer(int ax, int ay, int bx, int by)
 
     if (!shapeFilled)
     {
-        DrawLineToBuffer(xMin, yMin, xMax, yMin); 
-        DrawLineToBuffer(xMin, yMax, xMax, yMax); 
+        DrawLineToBuffer(xMin, yMin, xMax, yMin);
+        DrawLineToBuffer(xMin, yMax, xMax, yMax);
         DrawLineToBuffer(xMin, yMin, xMin, yMax);
-        DrawLineToBuffer(xMax, yMin, xMax, yMax); 
+        DrawLineToBuffer(xMax, yMin, xMax, yMax);
     }
     else
     {
@@ -904,9 +908,8 @@ void Painter::DrawSquareToBuffer(int ax, int ay, int bx, int by)
     }
 }
 
-
-#include <queue>     
-#include <algorithm> 
+#include <queue>
+#include <algorithm>
 
 void Painter::FillBucket()
 {
@@ -914,8 +917,6 @@ void Painter::FillBucket()
 
     if (currentColor == targetColor)
         return;
-
- 
 
     std::queue<int> q;
     int startX = cursorX;
@@ -929,7 +930,7 @@ void Painter::FillBucket()
     int startIndex = startY * PicSizeX + startX;
 
     q.push(startIndex);
-    PixelsArray[startIndex] = currentColor; 
+    PixelsArray[startIndex] = currentColor;
 
     while (!q.empty())
     {
@@ -953,8 +954,8 @@ void Painter::FillBucket()
 
                 if (PixelsArray[nIndex] == targetColor)
                 {
-                    PixelsArray[nIndex] = currentColor; 
-                    q.push(nIndex);                   
+                    PixelsArray[nIndex] = currentColor;
+                    q.push(nIndex);
                 }
             }
         }
@@ -1176,7 +1177,6 @@ void Painter::FillTriangleHelper(int x1, int y1, int x2, int y2, int x3, int y3)
     int originalBrush = brushSize;
     brushSize = 0;
 
-
     int x4 = x1 + (int)((float)(y2 - y1) / (y3 - y1) * (x3 - x1));
 
     FillFlatTriangle(x1, y1, x2, y2, x4, y2);
@@ -1202,7 +1202,7 @@ void Painter::FillFlatTriangle(int v1x, int v1y, int v2x, int v2y, int v3x, int 
             curx2 += invslope2;
         }
     }
-    else 
+    else
     {
         for (int scanlineY = v1y; scanlineY > v2y; scanlineY--)
         {
@@ -1222,13 +1222,13 @@ void Painter::DrawTextToBuffer(String text, int x, int y, uint8_t size)
 
     tempSprite.setTextSize(size);
     int textW = tempSprite.textWidth(text) + 2;
-    int textH = 8 * size; 
+    int textH = 8 * size;
 
     if (!tempSprite.createSprite(textW, textH))
         return;
 
-    tempSprite.fillSprite(0x0000);   
-    tempSprite.setTextColor(0xFFFF); 
+    tempSprite.fillSprite(0x0000);
+    tempSprite.setTextColor(0xFFFF);
     tempSprite.setCursor(0, 0);
     tempSprite.print(text);
 
@@ -1255,8 +1255,6 @@ void Painter::DrawTextToBuffer(String text, int x, int y, uint8_t size)
     tempSprite.deleteSprite();
 }
 
-
-
 void Painter::HandleMenuInput()
 {
     bool changed = false;
@@ -1276,7 +1274,7 @@ void Painter::HandleMenuInput()
     {
         menuSelection--;
         if (menuSelection < 0)
-            menuSelection = menuItemsCount - 1; // wrap 
+            menuSelection = menuItemsCount - 1; // wrap
         changed = true;
     }
 
@@ -1325,7 +1323,7 @@ void Painter::HandleMenuInput()
     if (!changed)
         return;
 
-    //update scroll
+    // update scroll
     if (menuSelection < scrollOffset)
         scrollOffset = menuSelection;
 
@@ -1337,7 +1335,7 @@ void Painter::HandleMenuInput()
 
 void Painter::SavePic(bool Exit, bool forceNewFile)
 {
-menuOpen=false;
+    menuOpen = false;
     if (PaintFromFile && forceNewFile == false)
     {
         bool success = saveBMP(mainOS->FileSelectedInFS.c_str(), PixelsArray, PicSizeX, PicSizeY);

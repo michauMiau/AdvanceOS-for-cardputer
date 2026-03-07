@@ -5,6 +5,20 @@
 #include <SD.h>
 #include "mbedtls/aes.h"
 #include "ExtraMenu.h"
+#include <mbedtls/md.h>
+#include <mbedtls/pkcs5.h>
+#include <mbedtls/gcm.h>
+#include <esp_random.h>
+
+#define SALT_SIZE 16
+#define IV_SIZE 12
+#define TAG_SIZE 16
+#define PBKDF2_ITERATIONS 10000
+
+
+
+
+
 
 // Path and key settings
 const char *VAULT_PATH = "/AdvanceOS/Vault/data.bin";
@@ -64,58 +78,104 @@ void PasswordVault::encryptDecrypt(uint8_t *input, size_t inputLen, uint8_t *out
     mbedtls_aes_free(&aes);
 }
 
-void PasswordVault::SaveVault(String userPassword)
-{
+void PasswordVault::SaveVault(String userPassword) {
     String jsonString;
     serializeJson(doc, jsonString);
     size_t originalLen = jsonString.length();
 
-    // Calculate Padding
-    size_t paddedLen = ((originalLen / 16) + 1) * 16;
-    uint8_t *input = (uint8_t *)calloc(paddedLen, 1);
-    uint8_t *output = (uint8_t *)malloc(paddedLen);
-    memcpy(input, jsonString.c_str(), originalLen);
+    uint8_t salt[SALT_SIZE];
+    uint8_t iv[IV_SIZE];
+    uint8_t tag[TAG_SIZE];
+    uint8_t derivedKey[32];
+    
+    esp_fill_random(salt, SALT_SIZE);
+    esp_fill_random(iv, IV_SIZE);
 
-    encryptDecrypt(input, paddedLen, output, userPassword, true);
-    SD.remove(VAULT_PATH);                         // Delete existing file if it exists
-    File file = SD.open(VAULT_PATH, FILE_WRITE);   // Create a new clean file
-    file.write((uint8_t *)&originalLen, sizeof(size_t)); // Write actual length first!
-    file.write(output, paddedLen);
+    mbedtls_md_context_t sha_ctx;
+    mbedtls_md_init(&sha_ctx);
+    mbedtls_md_setup(&sha_ctx, mbedtls_md_info_from_type(MBEDTLS_MD_SHA256), 1);
+    
+    mbedtls_pkcs5_pbkdf2_hmac(&sha_ctx, 
+                              (const unsigned char*)userPassword.c_str(), userPassword.length(),
+                              salt, SALT_SIZE, PBKDF2_ITERATIONS, 32, derivedKey);
+    mbedtls_md_free(&sha_ctx);
+    // ---------------------------------------
+
+    uint8_t *output = (uint8_t *)malloc(originalLen);
+    mbedtls_gcm_context gcm;
+    mbedtls_gcm_init(&gcm);
+    mbedtls_gcm_setkey(&gcm, MBEDTLS_CIPHER_ID_AES, derivedKey, 256);
+    
+    mbedtls_gcm_crypt_and_tag(&gcm, MBEDTLS_GCM_ENCRYPT, originalLen, 
+                              iv, IV_SIZE, NULL, 0, 
+                              (const uint8_t*)jsonString.c_str(), output, 
+                              TAG_SIZE, tag);
+
+    SD.remove(VAULT_PATH);
+    File file = SD.open(VAULT_PATH, FILE_WRITE);
+    file.write(salt, SALT_SIZE);
+    file.write(iv, IV_SIZE);
+    file.write(tag, TAG_SIZE);
+    file.write((uint8_t *)&originalLen, sizeof(size_t));
+    file.write(output, originalLen);
     file.close();
 
-    free(input);
+    mbedtls_gcm_free(&gcm);
     free(output);
 }
 
-bool PasswordVault::LoadVault(String userPassword)
-{
-    if (!SD.exists(VAULT_PATH))
-        return false;
+bool PasswordVault::LoadVault(String userPassword) {
+    if (!SD.exists(VAULT_PATH)) return false;
 
     File file = SD.open(VAULT_PATH, FILE_READ);
+    uint8_t salt[SALT_SIZE];
+    uint8_t iv[IV_SIZE];
+    uint8_t tag[TAG_SIZE];
     size_t originalLen;
-    file.read((uint8_t *)&originalLen, sizeof(size_t)); // Read original length
 
-    size_t encryptedSize = file.size() - sizeof(size_t);
-    uint8_t *input = (uint8_t *)malloc(encryptedSize);
-    uint8_t *output = (uint8_t *)malloc(encryptedSize);
+    file.read(salt, SALT_SIZE);
+    file.read(iv, IV_SIZE);
+    file.read(tag, TAG_SIZE);
+    file.read((uint8_t *)&originalLen, sizeof(size_t));
 
-    file.read(input, encryptedSize);
+    uint8_t *input = (uint8_t *)malloc(originalLen);
+    uint8_t *output = (uint8_t *)malloc(originalLen + 1);
+    file.read(input, originalLen);
     file.close();
 
-    encryptDecrypt(input, encryptedSize, output, userPassword, false);
+    uint8_t derivedKey[32]; 
+    mbedtls_md_context_t sha_ctx;
+    mbedtls_md_init(&sha_ctx);
+    mbedtls_md_setup(&sha_ctx, mbedtls_md_info_from_type(MBEDTLS_MD_SHA256), 1);
+    
+    mbedtls_pkcs5_pbkdf2_hmac(&sha_ctx, 
+                              (const unsigned char*)userPassword.c_str(), userPassword.length(),
+                              salt, SALT_SIZE, PBKDF2_ITERATIONS, 32, derivedKey);
+    mbedtls_md_free(&sha_ctx);
+    // ----------------------------
 
-    // Clear and load only up to the original length
-    doc.clear();
-    // Add null terminator to output to make it a valid string for ArduinoJson
-    output[originalLen] = '\0';
+    mbedtls_gcm_context gcm;
+    mbedtls_gcm_init(&gcm);
+    mbedtls_gcm_setkey(&gcm, MBEDTLS_CIPHER_ID_AES, derivedKey, 256);
+    
+    int status = mbedtls_gcm_auth_decrypt(&gcm, originalLen, iv, IV_SIZE, 
+                                          NULL, 0, tag, TAG_SIZE, 
+                                          input, output);
+    
+    bool success = false;
+    if (status == 0) {
+        output[originalLen] = '\0';
+        doc.clear();
+        DeserializationError error = deserializeJson(doc, (char *)output);
+        success = (error == DeserializationError::Ok);
+    }
 
-    DeserializationError error = deserializeJson(doc, (char *)output);
-
+    mbedtls_gcm_free(&gcm);
     free(input);
     free(output);
-    return (error == DeserializationError::Ok);
+    return success;
 }
+
 
 void PasswordVault::Loop()
 {

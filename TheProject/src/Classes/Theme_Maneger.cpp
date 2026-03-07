@@ -1,6 +1,7 @@
 #include "Theme_Maneger.h"
 #include "MyOS.h"
 #include "FileBrowser.h"
+#include "ExtraMenu.h"
 void Theme_Maneger::Begin()
 {
     SlectedString = &menuItems;
@@ -24,10 +25,14 @@ void Theme_Maneger::Begin()
 
 void Theme_Maneger::Loop()
 {
-    GlobalParentClass::Loop();
+
     if (mainOS->screenOff)
     {
         return;
+    }
+        if (mainOS->NewKey.ifKeyJustPress('`'))
+    {
+        mainOS->ChangeMenu(new Extra(mainOS));
     }
     // if (M5Cardputer.Keyboard.isChange())
     //{

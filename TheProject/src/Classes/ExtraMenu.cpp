@@ -27,6 +27,7 @@
 #include "Theme_Maneger.h"
 #include "MainMenu.h"
 #include "painter.h"
+#include "Pic/ExtraMenuPic.c"
 // #include "SD_To_DiskOnKey.h"
 void Extra::Begin()
 {
@@ -187,7 +188,9 @@ void Extra::Loop()
 void Extra::Draw()
 {
     const int HEADER_H = 18;
-    const int MENU_X = 14;
+    const int MENU_X = 35;
+    const int PIC_X = 11;
+    const int PIC_Y_OFFSET = -1;
 
     int y = HEADER_H + 6 - cameraY;
 
@@ -212,7 +215,44 @@ void Extra::Draw()
         {
             mainOS->sprite.setTextColor(YELLOW);
         }
-
+        switch (i)
+        {
+                                                    case 0:
+            mainOS->sprite.pushImage(PIC_X,y+PIC_Y_OFFSET,24,24,remote);
+            break;
+                                        case 1:
+            mainOS->sprite.pushImage(PIC_X,y+PIC_Y_OFFSET,24,24,vault);
+            break;
+                            case 2:
+            mainOS->sprite.pushImage(PIC_X,y+PIC_Y_OFFSET,24,24,Steps);
+            break;
+                                       case 3:
+            mainOS->sprite.pushImage(PIC_X,y+PIC_Y_OFFSET,24,24,colorPallete);
+            break;
+                   case 4:
+            mainOS->sprite.pushImage(PIC_X,y+PIC_Y_OFFSET,24,24,timer);
+            break;
+                             case 5:
+            mainOS->sprite.pushImage(PIC_X,y+PIC_Y_OFFSET,24,24,calculator);
+            break;
+        case 6:
+            mainOS->sprite.pushImage(PIC_X,y+PIC_Y_OFFSET,24,24,theme);
+            break;
+/*                                case 7:
+            mainOS->sprite.pushImage(PIC_X,y+PIC_Y_OFFSET,24,24,RecordMic);
+            break; */
+                   case 8:
+            mainOS->sprite.pushImage(PIC_X,y+PIC_Y_OFFSET,24,24,RecordMic);
+            break;
+        case 9:
+            mainOS->sprite.pushImage(PIC_X,y+PIC_Y_OFFSET,24,24,partition);
+            break;
+                    case 10:
+            mainOS->sprite.pushImage(PIC_X,y+PIC_Y_OFFSET,24,24,WifiSpectrum);
+            break;
+        default:
+            break;
+        }
         mainOS->sprite.setCursor(MENU_X, y);
         mainOS->sprite.print((*SlectedString)[i]);
 
