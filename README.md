@@ -5,10 +5,10 @@ Music Player<br>
 File explorer <br>
 <img src="gitFiles/screen_9116.bmp?raw=true">
 <img src="gitFiles/screen_97751.bmp?raw=true"><br>
-Painter (the middle picture is painted version of NOTES, the Screenshot taken By press FN+S)<br>
+Painter use bucket tool and premitive shapes<br>
+<img src="gitFiles/PAint example1.bmp?raw=true"><br>
 <img src="gitFiles/screen_100373.bmp?raw=true">
-<img src="gitFiles/screen_223244.bmp?raw=true">
-<img src="gitFiles/screen_370307.bmp?raw=true"><br>
+<img src="gitFiles/PAint example2.bmp?raw=true"><br>
 talk to (not) AI chatbot<br>
 <img src="gitFiles/screen_11139.bmp?raw=true"><br>
 3D renderer (OBJ files)<br>
