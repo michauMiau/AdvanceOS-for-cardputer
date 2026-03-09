@@ -355,6 +355,7 @@ void Painter::DrawMenu()
     // header
     M5.Lcd.setTextColor(TFT_YELLOW);
     M5.Lcd.setTextSize(1);
+     M5.Lcd.unloadFont();
     M5.Lcd.setCursor(menuX + 10, menuY + 8);
     M5.Lcd.print("--- PAINTER MENU ---");
 

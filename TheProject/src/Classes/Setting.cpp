@@ -177,6 +177,15 @@ void Setting::Loop()
             SlectedString = &menuItems;
         }
 
+        else if ((*SlectedString)[MenuIdFocus] == "Reset Password Vault")
+        {
+    mainOS->ShowOnScreenMessege("To Reset Vault Delete the file \"AdvanceOS/Vault/data.bin\" IMPORTENT!! it will also delete the password that you Store in the vault",4000);
+        }
+
+          else if ((*SlectedString)[MenuIdFocus] == "Reset To Default Theme")
+        {
+            mainOS->ResetToDefaultTheme();
+        }     
         else if ((*SlectedString)[MenuIdFocus] == "Credit")
         {
             M5Cardputer.Display.setSwapBytes(true);

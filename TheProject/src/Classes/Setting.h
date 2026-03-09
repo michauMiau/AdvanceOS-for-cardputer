@@ -14,7 +14,7 @@ public:
     ~Setting() {}
 
     // std::vector<String> menuItems= {"Brightness", "RESET FONT (if select from file manager)","test1","test2"};
-    std::vector<String> menuItems = {"Brightness", "Screen Dim Timer", "UI Sound", "Fonts","Show/Unshow Memory Status", "Set CPU Frequency (for Test)", "Credit"};
+    std::vector<String> menuItems = {"Brightness", "Screen Dim Timer", "UI Sound", "Fonts","Show/Unshow Memory Status", "Set CPU Frequency (for Test)","Reset To Default Theme", "Reset Password Vault" ,"Credit"};
 
     std::vector<String> Brightness = {"Brightness100%", "Brightness90%", "Brightness70%", "Brightness50%", "Brightness40%", "Brightness10%"};
     std::vector<String> DimTimer = {"Turn Off In 100 Second", "Turn Off In 50 Second", "Turn Off In 30 Second", "Turn Off In 20 Second", "Turn Off In 10 Second"};

@@ -19,7 +19,6 @@ void SetAppStats();
     bool GameHavePic=false;
     String GamePicPath;
     void GetGamePic();
-void GetGamesList();
 std::vector<String> GamePathList;
 private:
        int ItemSelectID = 0;
@@ -27,4 +26,5 @@ private:
     int CameraY = 0;
 void GameSelectedFromMenu(bool FromFileExplorer=false);
 void SetRomToLoadPath(String RomPath);
+void GetGameListFromSD();
 };

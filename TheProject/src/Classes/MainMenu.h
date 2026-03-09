@@ -67,7 +67,9 @@ void RefrashStarPos();
 
 
 
-
+elapsedMillis SplashChange;
+int InSplash=1;
+        int Pos1X, Pos1Y, Pos2X, Pos2Y, Pos3X, Pos3Y;
 
     void drawLinesInBackground(M5Canvas &sprite);
    // float inTextIndex=0.0;

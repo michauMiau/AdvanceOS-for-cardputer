@@ -291,7 +291,6 @@ void MainMenu::Draw()
         }
         break;
     case 4: // paint
-
         // change menu colors
 
         mainOS->getRGB_from_HEX(mainOS->MENU_4_PAINT_COLOR_1, TOcolor1R, TOcolor1G, TOcolor1B);
@@ -299,8 +298,43 @@ void MainMenu::Draw()
         if (!PicAvaliableForThisMenu)
 
         {
-             drawImageTransparent(165 , 20, 56, 70, PaintPA, [&](int x, int y, uint16_t c)
-                                 { mainOS->sprite.drawPixel(x, y, c); }, 0xF800); 
+            if (SplashChange > 500)
+            {
+                SplashChange=0;
+                InSplash++;
+                if (InSplash > 3)
+                {
+                    InSplash = 1;
+                }
+                switch (InSplash)
+                {
+                case 1:
+                    Pos1X = random(160, 200);
+                    Pos1Y = random(10, 30);
+
+                    break;
+                case 2:
+                    Pos2X = random(180, 220);
+                    Pos2Y = random(20, 40);
+                    break;
+                case 3:
+                    Pos3X = random(130, 170);
+                    Pos3Y = random(10, 30);
+                    break;
+                default:
+                    break;
+                }
+            }
+
+            drawImageTransparent(Pos1X, Pos1Y, 35, 35, Splash, [&](int x, int y, uint16_t c)
+                                 { mainOS->sprite.drawPixel(x, y, c); }, 0xF800, true, RED);
+            drawImageTransparent(Pos2X, Pos2Y, 35, 35, Splash, [&](int x, int y, uint16_t c)
+                                 { mainOS->sprite.drawPixel(x, y, c); }, 0xF800, true, YELLOW);
+            drawImageTransparent(Pos3X, Pos3Y, 35, 35, Splash, [&](int x, int y, uint16_t c)
+                                 { mainOS->sprite.drawPixel(x, y, c); }, 0xF800, true, BLUE);
+
+            drawImageTransparent(165, 20, 56, 70, PaintPA, [&](int x, int y, uint16_t c)
+                                 { mainOS->sprite.drawPixel(x, y, c); }, 0xF800);
         }
         // mainOS->ChangeMenu(new FileBrowser(mainOS));
 
@@ -467,25 +501,25 @@ TOcolor2B = 99; // pink */
     { // glow text from GPT
 
         int16_t txtPosY = 95;
-        int16_t baseColor = DARKGREY;  
-        int16_t glowColor = TFT_WHITE; 
+        int16_t baseColor = DARKGREY;
+        int16_t glowColor = TFT_WHITE;
 
-        static int glowIndex = 0;                
+        static int glowIndex = 0;
         static unsigned long lastGlowMillis = 0;
-        static bool waiting = false;          
+        static bool waiting = false;
 
         unsigned long now = millis();
 
         if (!waiting)
         {
             if (now - lastGlowMillis > 10)
-            { 
+            {
                 lastGlowMillis = now;
                 glowIndex++;
                 if (glowIndex >= BottomTextArray[mainOS->currentMenuIndex].length())
                 {
-                    glowIndex = -1; 
-                    waiting = true; 
+                    glowIndex = -1;
+                    waiting = true;
                     lastGlowMillis = now;
                 }
             }
@@ -493,8 +527,8 @@ TOcolor2B = 99; // pink */
         else
         {
             if (now - lastGlowMillis > 3000)
-            {                 
-                glowIndex = 0; 
+            {
+                glowIndex = 0;
                 waiting = false;
                 lastGlowMillis = now;
             }
@@ -608,7 +642,6 @@ void MainMenu::CheackIfHaveThemePictureForThisMenu()
 
         if (!SD.exists(CurrentThemePicPath.c_str()))
         {
-            Serial.println("theme pic not found");
             return;
         }
         PicAvaliableForThisMenu = true;
@@ -623,7 +656,6 @@ void MainMenu::CheackIfHaveThemePictureForThisMenu()
 
         if (!SD.exists(CurrentThemePicPath.c_str()))
         {
-            Serial.println("theme pic not found");
             return;
         }
         PicAvaliableForThisMenu = true;
@@ -638,7 +670,6 @@ void MainMenu::CheackIfHaveThemePictureForThisMenu()
 
         if (!SD.exists(CurrentThemePicPath.c_str()))
         {
-            Serial.println("theme pic not found");
             return;
         }
         PicAvaliableForThisMenu = true;
@@ -653,7 +684,6 @@ void MainMenu::CheackIfHaveThemePictureForThisMenu()
 
         if (!SD.exists(CurrentThemePicPath.c_str()))
         {
-            Serial.println("theme pic not found");
             return;
         }
         PicAvaliableForThisMenu = true;
@@ -668,7 +698,6 @@ void MainMenu::CheackIfHaveThemePictureForThisMenu()
 
         if (!SD.exists(CurrentThemePicPath.c_str()))
         {
-            Serial.println("theme pic not found");
             return;
         }
         PicAvaliableForThisMenu = true;
@@ -741,7 +770,7 @@ void MainMenu::RefrashStarPos()
 {
     for (size_t i = 0; i < STAR_COUNT; i++)
     {
-    
+
         StarsPosX[i] += 1;
         StarsPosY[i] += 1;
         // Y wrap

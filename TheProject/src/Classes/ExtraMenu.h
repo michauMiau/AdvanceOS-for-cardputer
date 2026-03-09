@@ -39,6 +39,8 @@ public:
         /*  "Cardputer To Disk On Key", */
         "Partition Viewer",
         "Wifi Spectrum",
+"Snake",
+"Piano",
 
     };
 

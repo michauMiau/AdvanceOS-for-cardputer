@@ -29,8 +29,8 @@ void GamesV2::Begin()
         mainOS->FastLoadGameFromFileExplorer = false;
         GameSelectedFromMenu(true);
     }
-    GetGamesList();
-
+  //  GetGamesList();
+GetGameListFromSD();
     showTopBar = false;
     GetGamePic();
 }
@@ -108,7 +108,7 @@ void GamesV2::Draw()
     if (GamePathList.size() == 0)
     {
         mainOS->sprite.setCursor(40, 50);
-        mainOS->sprite.print("You Need To Put Games In \"Games\" Folder");
+        mainOS->sprite.print("You Need To Put Games\n In \"Games\" Folder");
     }
     for (size_t i = 0; i < GamePathList.size(); i++)
     {
@@ -146,7 +146,7 @@ void GamesV2::Draw()
 
 void GamesV2::GetGamePic()
 {
-    M5Cardputer.Display.fillRect(SCREEN_W - 135, 0, 135, 135,BLACK);
+    M5Cardputer.Display.fillRect(SCREEN_W - 135, 0, 135, 135, BLACK);
     GameHavePic = false;
     String GamePath = GamePathList[ItemSelectID];
 
@@ -168,45 +168,14 @@ void GamesV2::GetGamePic()
             GameHavePic = true;
             GamePicPath = PicPath;
 
-            IMG_x_POS = SCREEN_W - 135, 
-                IMG_y_POS = 0;         
+            IMG_x_POS = SCREEN_W - 135,
+            IMG_y_POS = 0;
             DrawPNG(GamePicPath.c_str());
         }
- 
     }
 }
 
-void GamesV2::GetGamesList()
-{
 
-    GamePathList.clear();
-    // mainOS->FileList.reserve(50); // set 50 String to make it faster
-    /*     if (mainOS->LastAppInstalledPath != "") // if there is game installed
-        {
-            GamePathList.push_back("Play Last Game You Played");
-        } */
-
-    mainOS->GetFilesToList("ard", "/Games");
-    for (int i = 0; i < mainOS->FileList.size(); i++)
-    {
-        GamePathList.push_back(mainOS->FileList[i]);
-    }
-    mainOS->GetFilesToList("nes", "/Games");
-    for (int i = 0; i < mainOS->FileList.size(); i++)
-    {
-        GamePathList.push_back(mainOS->FileList[i]);
-    }
-    mainOS->GetFilesToList("gb", "/Games");
-    for (int i = 0; i < mainOS->FileList.size(); i++)
-    {
-        GamePathList.push_back(mainOS->FileList[i]);
-    }
-    mainOS->GetFilesToList("gbc", "/Games");
-    for (int i = 0; i < mainOS->FileList.size(); i++)
-    {
-        GamePathList.push_back(mainOS->FileList[i]);
-    }
-}
 void GamesV2::GameSelectedFromMenu(bool FromFileExplorer)
 {
     String GameToLoadPath;
@@ -279,7 +248,6 @@ void GamesV2::GameSelectedFromMenu(bool FromFileExplorer)
         {
             return;
         }
-
 
         esp_err_t err = esp_ota_set_boot_partition(update_partition);
 
@@ -393,6 +361,49 @@ void GamesV2::SetRomToLoadPath(String RomPath)
     prefsRomToLoad.end();
 }
 
+void GamesV2::GetGameListFromSD()
+{
+    File root = SD.open("/Games");
+
+    if (!root)
+    {
+        Serial.println("Failed to open directory");
+        return;
+    }
+
+    if (!root.isDirectory())
+    {
+        Serial.println("Not a directory");
+        root.close();
+        return;
+    }
+
+    File file = root.openNextFile();
+    int fileCount = 0;
+
+    while (file && fileCount < 100)
+    {
+        if (!file.isDirectory())
+        {
+            const char *name = file.name();
+           // String EXT = mainOS->GetExtensionLower(name);
+            if (mainOS->FilePathHasExtension(name, ".nes") || mainOS->FilePathHasExtension(name, ".ard")|| mainOS->FilePathHasExtension(name, ".gb")|| mainOS->FilePathHasExtension(name, ".gbc"))
+
+         //   if (EXT == ".ard" || EXT == ".gb" || EXT == ".gbc")
+            {
+                String fullPath = "/Games/";
+                fullPath += name;
+                GamePathList.push_back(fullPath);
+                fileCount++; 
+            }
+        }
+
+        file.close();              
+        file = root.openNextFile(); 
+    }
+
+    root.close();
+}
 void GamesV2::SetAppStats()
 {
 

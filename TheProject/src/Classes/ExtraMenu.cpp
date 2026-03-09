@@ -28,6 +28,8 @@
 #include "MainMenu.h"
 #include "painter.h"
 #include "Pic/ExtraMenuPic.c"
+#include "FUN/Snake.h"
+#include "FUN/Piano.h"
 // #include "SD_To_DiskOnKey.h"
 void Extra::Begin()
 {
@@ -173,6 +175,14 @@ void Extra::Loop()
         {
             mainOS->ChangeMenu(new GamesV2(mainOS));
         }
+        else if ((*SlectedString)[MenuIdFocus] == "Snake")
+        {
+            mainOS->ChangeMenu(new Snake(mainOS));
+        }
+                else if ((*SlectedString)[MenuIdFocus] == "Piano")
+        {
+            mainOS->ChangeMenu(new Piano(mainOS));
+        }
     }
     // }
 
@@ -217,38 +227,38 @@ void Extra::Draw()
         }
         switch (i)
         {
-                                                    case 0:
-            mainOS->sprite.pushImage(PIC_X,y+PIC_Y_OFFSET,24,24,remote);
+        case 0:
+            mainOS->sprite.pushImage(PIC_X, y + PIC_Y_OFFSET, 24, 24, remote);
             break;
-                                        case 1:
-            mainOS->sprite.pushImage(PIC_X,y+PIC_Y_OFFSET,24,24,vault);
+        case 1:
+            mainOS->sprite.pushImage(PIC_X, y + PIC_Y_OFFSET, 24, 24, vault);
             break;
-                            case 2:
-            mainOS->sprite.pushImage(PIC_X,y+PIC_Y_OFFSET,24,24,Steps);
+        case 2:
+            mainOS->sprite.pushImage(PIC_X, y + PIC_Y_OFFSET, 24, 24, Steps);
             break;
-                                       case 3:
-            mainOS->sprite.pushImage(PIC_X,y+PIC_Y_OFFSET,24,24,colorPallete);
+        case 3:
+            mainOS->sprite.pushImage(PIC_X, y + PIC_Y_OFFSET, 24, 24, colorPallete);
             break;
-                   case 4:
-            mainOS->sprite.pushImage(PIC_X,y+PIC_Y_OFFSET,24,24,timer);
+        case 4:
+            mainOS->sprite.pushImage(PIC_X, y + PIC_Y_OFFSET, 24, 24, timer);
             break;
-                             case 5:
-            mainOS->sprite.pushImage(PIC_X,y+PIC_Y_OFFSET,24,24,calculator);
+        case 5:
+            mainOS->sprite.pushImage(PIC_X, y + PIC_Y_OFFSET, 24, 24, calculator);
             break;
         case 6:
-            mainOS->sprite.pushImage(PIC_X,y+PIC_Y_OFFSET,24,24,theme);
+            mainOS->sprite.pushImage(PIC_X, y + PIC_Y_OFFSET, 24, 24, theme);
             break;
-/*                                case 7:
-            mainOS->sprite.pushImage(PIC_X,y+PIC_Y_OFFSET,24,24,RecordMic);
-            break; */
-                   case 8:
-            mainOS->sprite.pushImage(PIC_X,y+PIC_Y_OFFSET,24,24,RecordMic);
+        case 7:
+            mainOS->sprite.pushImage(PIC_X, y + PIC_Y_OFFSET, 24, 24, gpio);
+            break;
+        case 8:
+            mainOS->sprite.pushImage(PIC_X, y + PIC_Y_OFFSET, 24, 24, RecordMic);
             break;
         case 9:
-            mainOS->sprite.pushImage(PIC_X,y+PIC_Y_OFFSET,24,24,partition);
+            mainOS->sprite.pushImage(PIC_X, y + PIC_Y_OFFSET, 24, 24, partition);
             break;
-                    case 10:
-            mainOS->sprite.pushImage(PIC_X,y+PIC_Y_OFFSET,24,24,WifiSpectrum);
+        case 10:
+            mainOS->sprite.pushImage(PIC_X, y + PIC_Y_OFFSET, 24, 24, WifiSpectrum);
             break;
         default:
             break;

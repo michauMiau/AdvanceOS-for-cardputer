@@ -317,7 +317,6 @@ void FileBrowser::Loop()
     {
         return;
     }
-
     if (mainOS->NewKey.Key_Press_1_Click_And_After_Few_MS_RepeatClick(';', 700, 50))
 
     // if (M5Cardputer.Keyboard.isKeyPressed(';'))
@@ -1154,7 +1153,50 @@ String FileBrowser::MakeUniquePath(fs::FS &fs, const String &dstPath)
     // mainOS->ShowOnScreenMessege("File exist in destination folder", 1500);
     return newPath;
 }
+void FileBrowser::Show_BMP_picture(String fileName) 
+{
+    File bmpFile = SD.open(fileName, FILE_READ);
+    if (!bmpFile) return;
 
+    uint8_t header[54];
+    bmpFile.read(header, 54);
+
+    int32_t width = *(int32_t *)&header[18];
+    int32_t height = *(int32_t *)&header[22];
+    uint16_t bpp = *(uint16_t *)&header[28]; // Bits per pixel
+    uint32_t offset = *(uint32_t *)&header[10]; // Where the pixel data actually starts
+
+    // Calculate bytes per pixel
+    int bytesPerPixel = bpp / 8;
+    
+    // BMP row size must be a multiple of 4 bytes
+    int rowSize = (width * bytesPerPixel + 3) & ~3;
+
+    // Buffer for one full row
+    uint8_t lineBuffer[width * bytesPerPixel];
+
+    M5.Lcd.startWrite();
+    for (int y = 0; y < abs(height); y++)
+    {
+        // Handle bottom-up vs top-down
+        int pos = (height > 0) ? (height - 1 - y) : y;
+        bmpFile.seek(offset + (pos * rowSize));
+        bmpFile.read(lineBuffer, width * bytesPerPixel);
+
+        for (int x = 0; x < width; x++)
+        {
+            uint8_t b = lineBuffer[x * bytesPerPixel];
+            uint8_t g = lineBuffer[x * bytesPerPixel + 1];
+            uint8_t r = lineBuffer[x * bytesPerPixel + 2];
+            // If 32-bit, the 4th byte (alpha) is simply skipped/ignored
+
+            M5.Lcd.drawPixel(x, y, M5.Lcd.color565(r, g, b));
+        }
+    }
+    M5.Lcd.endWrite();
+    bmpFile.close();
+}
+/* 
 void FileBrowser::Show_BMP_picture(String fileName) // only 24 bit
 {
     File bmpFile = SD.open(fileName, FILE_READ);
@@ -1202,7 +1244,7 @@ void FileBrowser::Show_BMP_picture(String fileName) // only 24 bit
 
     M5.Lcd.endWrite();
     bmpFile.close();
-}
+} */
 /* 
 void FileBrowser::EmulateSdCardAsUSB()
 {

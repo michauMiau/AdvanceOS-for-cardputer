@@ -34,7 +34,74 @@ static const float STEP_THRESHOLD = 1.0;
 #define SD_MISO 39
 #define SD_MOSI 14
 #define SD_CS 12
+void DrawWordWrap(M5Canvas &spr, String text, int x, int y, int maxWidth, int lineHeight)
+{
+    String word = "";
+    String line = "";
 
+    for (int i = 0; i < text.length(); i++)
+    {
+        char c = text[i];
+
+        if (c == ' ' || c == '\n')
+        {
+            String testLine = line;
+            if (testLine.length() > 0)
+                testLine += " ";
+            testLine += word;
+
+            if (spr.textWidth(testLine) > maxWidth)
+            {
+                spr.drawString(line, x, y);
+                y += lineHeight;
+                line = word;
+            }
+            else
+            {
+                if (line.length() > 0)
+                    line += " ";
+                line += word;
+            }
+
+            word = "";
+
+            if (c == '\n')
+            {
+                spr.drawString(line, x, y);
+                y += lineHeight;
+                line = "";
+            }
+        }
+        else
+        {
+            word += c;
+        }
+    }
+
+    if (word.length() > 0)
+    {
+        String testLine = line;
+        if (testLine.length() > 0)
+            testLine += " ";
+        testLine += word;
+
+        if (spr.textWidth(testLine) > maxWidth)
+        {
+            spr.drawString(line, x, y);
+            y += lineHeight;
+            line = word;
+        }
+        else
+        {
+            if (line.length() > 0)
+                line += " ";
+            line += word;
+        }
+    }
+
+    if (line.length() > 0)
+        spr.drawString(line, x, y);
+}
 String getHeapInfoKB()
 {
     uint32_t total = ESP.getHeapSize();
@@ -62,8 +129,9 @@ bool MyOS::AskSomthing(String Question)
         sprite.fillSprite(ORANGE);
         sprite.setTextColor(BLACK);
 
-        sprite.setCursor(10, 5);
-        sprite.print(Question);
+        // sprite.setCursor(10, 5);
+        // sprite.print(Question);
+        DrawWordWrap(sprite, Question, 10, 5, 220, 12);
 
         sprite.setCursor(10, 85);
         sprite.print("Press The Key To Answer");
@@ -95,71 +163,6 @@ bool MyOS::AskSomthing(String Question)
     return theAnswer;
 }
 
-/* String MyOS::AskFromUserForString(String Question, bool NoSpecialChar,bool PasswordMode)
-{
-    String UserInput = "";
-    bool Finished = false;
-
-    while (!Finished)
-    {
-        M5Cardputer.update();
-
-        sprite.createSprite(240, 135 - TopBarYsize);
-        sprite.fillSprite(ORANGE);
-        sprite.unloadFont();
-        sprite.setTextSize(1);
-        sprite.setTextColor(BLACK);
-        sprite.setCursor(10, 5);
-        sprite.print(Question);
-        sprite.drawRect(5, 45, 230, 30, BLACK);
-        sprite.setCursor(10, 55);
-        sprite.print(UserInput + "_");
-        sprite.setCursor(10, 85);
-        sprite.setTextColor(BLUE);
-        sprite.print("Press ENTER to confirm");
-        sprite.pushSprite(0, TopBarYsize);
-        sprite.deleteSprite();
-        // ---------------------------------
-
-        if (M5Cardputer.Keyboard.isChange())
-        {
-            if (M5Cardputer.Keyboard.isPressed())
-            {
-                Keyboard_Class::KeysState status = M5Cardputer.Keyboard.keysState();
-
-
-                 if (status.del && UserInput.length() > 0)
-                {
-                    UserInput.remove(UserInput.length() - 1);
-                }
-
-                for (auto i : status.word)
-                {
-                    if (NoSpecialChar)
-                    {
-
-                        if (isAlphaNumeric(i) || i == '_' || i == '-' || i == ' ')
-                        {
-                            UserInput += i;
-                        }
-                    }
-                    else
-                    {
-                        UserInput += i;
-                    }
-                }
-            }
-        }
-        if(NewKey.ifKeyJustPress(KEY_ENTER))
-        {
-            Finished=true;
-        }
-        delay(10);
-    }
-
-    return UserInput;
-} */
-
 String MyOS::AskFromUserForString(String Question, bool NoSpecialChar, bool PasswordMode)
 {
     String UserInput = "";
@@ -174,8 +177,10 @@ String MyOS::AskFromUserForString(String Question, bool NoSpecialChar, bool Pass
         sprite.unloadFont();
         sprite.setTextSize(1);
         sprite.setTextColor(BLACK);
-        sprite.setCursor(10, 5);
-        sprite.print(Question);
+        // sprite.setCursor(10, 5);
+        // sprite.print(Question);
+        DrawWordWrap(sprite, Question, 10, 5, 220, 12);
+
         sprite.drawRect(5, 45, 230, 30, BLACK);
 
         // --- Password Mode Logic ---
@@ -273,9 +278,9 @@ int MyOS::AskForColor(String Question, uint16_t DefaultColor)
         sprite.unloadFont();
         sprite.setTextSize(1);
         sprite.setTextColor(WHITE, BLACK);
-        sprite.setCursor(10, 5);
-        sprite.print(Question);
-
+        // sprite.setCursor(10, 5);
+        // sprite.print(Question);
+        DrawWordWrap(sprite, Question, 10, 5, 220, 12);
         const char *names[3] = {"R", "G", "B"};
         uint8_t *values[3] = {&r, &g, &b};
         uint16_t barColors[3] = {RED, GREEN, BLUE};
@@ -352,7 +357,6 @@ int MyOS::AskForColor(String Question, uint16_t DefaultColor)
 
 void MyOS::begin()
 {
-
     // app load code
     prefsForRestart.begin("app", true);
     LastAppInstalledPath = prefsForRestart.getString("AppLoadedPath", "");
@@ -551,9 +555,10 @@ void MyOS::loop()
 
         if (saveScreenshot("/AdvanceOS/Screenshots/screen_" + String(millis()) + ".bmp"))
         {
-            ShowOnScreenMessege("image Saved in \"AdvanceOS->Screenshots\" folder", 1000);
+            ShowOnScreenMessege("image Saved in \"AdvanceOS->Screenshots\" folder", 2000);
         }
     }
+
     // if time pass turn off the display
     if (DimTimer > ScreenDimInTimeSecond && !screenOff)
     {
@@ -807,6 +812,11 @@ bool MyOS::SaveCurrentTheme(String Custom_path)
 }
 void MyOS::ResetToDefaultTheme()
 {
+    if (CurrentThemeSelectedPath == "")
+    {
+        ShowOnScreenMessege("Dafault Theme Alredy Selected", 2000);
+        return;
+    } 
     TOP_BAR_COLOR_1 = 0x5800;
     TOP_BAR_COLOR_2 = 0x7800;
 
@@ -832,7 +842,9 @@ void MyOS::ResetToDefaultTheme()
     MENU_7_SETTINGS_COLOR_1 = 0x8122;
     MENU_7_SETTINGS_COLOR_2 = 0x1820;
     CurrentThemeSelectedPath = "";
-    saveSettings();
+
+        saveSettings();
+
 }
 void MyOS::SetFontForSprite(M5Canvas &spriteReff)
 {
@@ -1145,17 +1157,90 @@ String MyOS::FromFilePathToFolderPath(String FilePath)
 
 void MyOS::ShowOnScreenMessege(String MSG, int TimeInMs)
 {
-    M5Cardputer.Display.fillScreen(DARKGREY);
+    M5Cardputer.Display.fillScreen(BLACK);
 
     M5Cardputer.Display.unloadFont();
     M5Cardputer.Display.setTextSize(1);
     M5Cardputer.Display.setTextColor(WHITE);
-    M5Cardputer.Display.setTextWrap(true);
 
-    int y = M5Cardputer.Display.fontHeight();
-    M5Cardputer.Display.setCursor(4, y + 4);
+    int padding = 15;
+    int rectW = M5Cardputer.Display.width() - (padding * 2);
+    int rectH = M5Cardputer.Display.height() - (padding * 2);
+    int rectX = padding;
+    int rectY = padding;
 
-    M5Cardputer.Display.print(MSG);
+    M5Cardputer.Display.drawRoundRect(rectX, rectY, rectW, rectH, 10, YELLOW);
+
+    int textX = rectX + 10;
+    int textY = rectY + 10;
+    int maxWidth = rectW - 20;
+    int lineHeight = 12;
+
+    String word = "";
+    String line = "";
+
+    for (int i = 0; i < MSG.length(); i++)
+    {
+        char c = MSG[i];
+
+        if (c == ' ' || c == '\n')
+        {
+            String testLine = line;
+            if (testLine.length() > 0)
+                testLine += " ";
+            testLine += word;
+
+            if (M5Cardputer.Display.textWidth(testLine) > maxWidth)
+            {
+                M5Cardputer.Display.drawString(line, textX, textY);
+                textY += lineHeight;
+                line = word;
+            }
+            else
+            {
+                if (line.length() > 0)
+                    line += " ";
+                line += word;
+            }
+
+            word = "";
+
+            if (c == '\n')
+            {
+                M5Cardputer.Display.drawString(line, textX, textY);
+                textY += lineHeight;
+                line = "";
+            }
+        }
+        else
+        {
+            word += c;
+        }
+    }
+
+    if (word.length() > 0)
+    {
+        String testLine = line;
+        if (testLine.length() > 0)
+            testLine += " ";
+        testLine += word;
+
+        if (M5Cardputer.Display.textWidth(testLine) > maxWidth)
+        {
+            M5Cardputer.Display.drawString(line, textX, textY);
+            textY += lineHeight;
+            line = word;
+        }
+        else
+        {
+            if (line.length() > 0)
+                line += " ";
+            line += word;
+        }
+    }
+
+    if (line.length() > 0)
+        M5Cardputer.Display.drawString(line, textX, textY);
 
     if (CurrentMusic != nullptr)
         CurrentMusic->first_frame = true;
