@@ -68,12 +68,7 @@ How to format to FAT https://www.instructables.com/Format-USB-Flash-Drive-to-FAT
 - ENTER open file menu
 - -> fast execute file
 
-# in Text editor
-- FN + Left Arrow : move curser to left 
-- FN + right Arrow : move curser to right 
-- FN + Up Arrow : scroll text
-- FN + Down Arrow : scroll text
-- ESC open Menu
+
 # in painter  only BMP file(24 BIT only)
 - Arrows move courser, Hold FN to move slower,
 - ESC open menu (you can see al shortcut in this menu)
