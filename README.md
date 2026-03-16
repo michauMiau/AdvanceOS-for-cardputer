@@ -95,6 +95,14 @@ How to format to FAT https://www.instructables.com/Format-USB-Flash-Drive-to-FAT
 - F toggle fill mode (if not fill only draw outline)
 - S quick save
 - A reload image Again from file (good for UNDO)
+- O outline for specific color select the color with the mouse,(the outline size by brush size and the outline color by current color)
+# Music Creator ALPHA (need to be improve)
+-S to save
+-P to put or delete Note
+-ENTER to play your masterpiece
+
+
+
 # in Game
 - ESC exit the game and back to file explorer 
 - Arrow key
