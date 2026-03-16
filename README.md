@@ -56,9 +56,6 @@ If you already have the Launcher installed on your Cardputer, you can install Ad
  Use the Launcher to install it
 More info: [Launcher GitHub](https://github.com/bmorcelli/Launcher)
 
-# Very Importent
-if after some use,in some menu not open (like Remote ESP or Record that demand lot's of RAM) it mean it out of memory restart the cardputer and enter directly to the menu and it will work!
-
 
 # 🎮 How to Use
 - A microSD card is required. The file system must be FAT or FAT32). NTFS and exFAT are not supported. (New card (Fast 
