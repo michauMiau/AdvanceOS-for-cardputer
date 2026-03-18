@@ -137,7 +137,7 @@ How to format to FAT https://www.instructables.com/Format-USB-Flash-Drive-to-FAT
 - [X] Timer functionality
 - [X] Step's Counter!
 - [X] Music Creator You can creat your old retro music , save the project, and export it as WAV file
-- [x] Alarm Clock. set the current time and wake up time, the carputer calculate the time and Enter DEEP SLEEP mode to save battery life After he wake up (you can wake him up manualy by press RESET) he will sound the alarm and turn off himself
+- [x] Alarm Clock. set the current time and wake up time, the carputer calculate the time and Enter DEEP SLEEP mode to save battery life After he wake up (you can wake him up manualy by press RESET After RESET you need to set the alarm again) he will sound the alarm and turn off himself (while the cardputer in deep sleep mode don't turn off the power switch or it will never sound the alarm)
 - [x] Image viewer (PNG ,GIF,JPEG) can zoom in and out and pan image by arrow keys and +/- keys(need small size PIC limited by Cardputer RAM)
 - [x] GIF viewer work with animation (need small size GIF ,Cardputer RAM is limited)
 - [x] Notes for daily use
