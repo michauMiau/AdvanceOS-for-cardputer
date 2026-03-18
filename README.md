@@ -89,10 +89,11 @@ How to format to FAT https://www.instructables.com/Format-USB-Flash-Drive-to-FAT
 - A reload image Again from file (good for UNDO)
 - O outline for specific color select the color with the mouse,(the outline size by brush size and the outline color by current color)
 # Music Creator ALPHA (need to be improve)
--S to save
--P to put or delete Note
--ENTER to play your masterpiece
 
+-S to save
+-\ KEY to put or delete Note
+-ENTER to play your masterpiece (From the start)
+- SPACE BAR to play from current Screen (good for long song for not play all the song from the start)
 
 
 # in Game
@@ -133,6 +134,8 @@ How to format to FAT https://www.instructables.com/Format-USB-Flash-Drive-to-FAT
 - [x] paint mode draw new picture or edit old picture (can't do UNDO function like ctrl+z, the cardputer don't have much RAM)
 - [X] Timer functionality
 - [X] Step's Counter!
+- [X] Music Creator You can creat your old retro music , save the project, and export it as WAV file
+- [x] Alarm Clock. set the current time and wake up time, the carputer calculate the time and Enter DEEP SLEEP mode to save battery life After he wake up (you can wake him up manualy by press RESET) he will sound the alarm and turn off himself
 - [x] Image viewer (PNG ,GIF,JPEG) can zoom in and out and pan image by arrow keys and +/- keys(need small size PIC limited by Cardputer RAM)
 - [x] GIF viewer work with animation (need small size GIF ,Cardputer RAM is limited)
 - [x] Notes for daily use
