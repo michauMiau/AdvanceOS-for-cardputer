@@ -90,11 +90,11 @@ How to format to FAT https://www.instructables.com/Format-USB-Flash-Drive-to-FAT
 - S quick save
 - A reload image Again from file (good for UNDO)
 - O outline for specific color select the color with the mouse,(the outline size by brush size and the outline color by current color)
-# Music Creator ALPHA (need to be improve)
 
--S to save
--\ KEY to put or delete Note
--ENTER to play your masterpiece (From the start)
+# Music Creator ALPHA (need to be improve)
+- S KEY to save
+- \ KEY to put or delete Note
+- ENTER to play your masterpiece (From the start)
 - SPACE BAR to play from current Screen (good for long song for not play all the song from the start)
 
 
