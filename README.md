@@ -11,6 +11,8 @@ Painter use bucket tool and premitive shapes<br>
 <img src="gitFiles/PAint example2.bmp?raw=true"><br>
 talk to (not) AI chatbot<br>
 <img src="gitFiles/screen_11139.bmp?raw=true"><br>
+Music Creator<br>
+<img src="gitFiles/screen_311869.bmp?raw=true"><br>
 3D renderer (OBJ files)<br>
 <img src="gitFiles/screen_21074.bmp?raw=true">
 <img src="gitFiles/screen_34278.bmp?raw=true"><br>
