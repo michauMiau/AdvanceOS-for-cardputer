@@ -96,7 +96,7 @@ How to format to FAT https://www.instructables.com/Format-USB-Flash-Drive-to-FAT
 - \ KEY to put or delete Note
 - ENTER to play your masterpiece (From the start)
 - SPACE BAR to play from current Screen (good for long song for not play all the song from the start)
-
+- Left Arrow Keys E, A, S, D,: move notes from the Right of the courser to any direction (good to fix lot of notes if not in place)
 
 # in Game
 - ESC exit the game and back to file explorer 
