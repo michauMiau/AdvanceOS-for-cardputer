@@ -11,7 +11,8 @@ Painter use bucket tool and premitive shapes<br>
 <img src="gitFiles/PAint example2.bmp?raw=true"><br>
 talk to (not) AI chatbot<br>
 <img src="gitFiles/screen_11139.bmp?raw=true"><br>
-Music Creator<br>
+Music Composer<br>
+<img src="gitFiles/screen_29817.bmp?raw=true">
 <img src="gitFiles/screen_311869.bmp?raw=true"><br>
 3D renderer (OBJ files)<br>
 <img src="gitFiles/screen_21074.bmp?raw=true">
@@ -146,7 +147,7 @@ How to format to FAT https://www.instructables.com/Format-USB-Flash-Drive-to-FAT
 - [ ] radio (Maybe)
 - [x] Password Vault , Store all you password in encrypted file!! (if you want to reset the vault, you must delete the file inside "AdvanceOS/Vault" folder , it will delete the stored password's as well. so reamember your main vault password!!)
 - [x] IR Sender Put IR files in sd card and send via the cardputer you can find IR files [here](https://github.com/Lucaslhm/Flipper-IRDB)
-- [x] Screenshot press FN+S everywere to take screenshot (will be save in AdvaneOS folder)
+- [x] Screenshot press ButtonGO (top right button) to take screenshot (will be save in AdvaneOS folder)
 - [x] Custom theme you can create themes and select them ! enter extra menu-> theme manager You can add custom picture to every Menu download  TEST_TEHEME folder and put in SD card Activate it in file explorer, you can edit the PNG files as you like and edit the thm file via the cardputer itself
 - [X] Games!! you can Download Arduboy games or NES or GBC games (you need to put "Emulator.extension" file in "AdvanceOS" folder in your SD card) (put the games in "Games" folder in the root of the SD card to see the games in GAME menu, or just run the games via file explorer) if you install AdvanceOS via launcher you need to change partition type to anable the games to work!!!! the OS will ask it Automatic to change if you enter to Games in main menu.
 - you can add picture to a game in game menu!! 
