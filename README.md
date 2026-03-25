@@ -157,6 +157,6 @@ the image must be 135X135 size and PNG format , the image need to be in the same
 
 
 #💡 Suggestions are Welcome!
-If you have practical ideas or feature requests, feel free to share!
+If you have practical ideas or feature requests, feel free to share! here https://github.com/bomberman30/AdvanceOS-for-cardputer/issues
 
 
