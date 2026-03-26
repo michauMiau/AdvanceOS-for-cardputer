@@ -90,8 +90,19 @@ How to format to FAT https://www.instructables.com/Format-USB-Flash-Drive-to-FAT
 - F toggle fill mode (if not fill only draw outline)
 - S quick save
 - A reload image Again from file (good for UNDO)
-- O outline for specific color select the color with the mouse,(the outline size by brush size and the outline color by current color)
-- 2 and 3 Buttons Zoom In Or Out (Grid Will Appeare in zoom 5. it's Good for pixel art edit)
+- O outline for specific color select the color with the mouse,(the outline size by brush size and the outline color by current color)<br>
+  Outline for specific color (purple)<br>
+   <img src="gitFiles/screen_106742.bmp?raw=true">
+      <img src="gitFiles/screen_428194.bmp?raw=true">
+<br>Outline All (From Menu)<br>
+ <img src="gitFiles/screen_155461.bmp?raw=true"><br>
+
+- 2 and 3 Buttons Zoom In Or Out (Grid Will Appeare in zoom 5. it's Good for pixel art edit)<br>
+ <img src="gitFiles/screen_218137.bmp?raw=true"><br>
+
+
+
+
 # Music Composer BETA (need to be improve)
 - S KEY to save
 - A key to reload from the file
