@@ -94,10 +94,11 @@ How to format to FAT https://www.instructables.com/Format-USB-Flash-Drive-to-FAT
 - 2 and 3 Buttons Zoom In Or Out (Grid Will Appeare in zoom 5. it's Good for pixel art edit)
 # Music Composer BETA (need to be improve)
 - S KEY to save
+- A key to reload from the file
 - \ KEY to put or delete Note
 - ENTER to play your masterpiece (From the start)
 - SPACE BAR to play from current Screen (good for long song for not play all the song from the start)
-- Left Arrow Keys E, A, S, D,: move notes from the Right of the courser to any direction (good to fix lot of notes if not in place)
+- Left Arrow Keys D, F, G, T,: move notes from the Right of the courser to any direction (good to fix lot of notes if not in place)
 
 # in Game
 - ESC exit the game and back to file explorer 
@@ -134,7 +135,7 @@ How to format to FAT https://www.instructables.com/Format-USB-Flash-Drive-to-FAT
 - [X] 3d render , it can play small OBJ files, you can use models in 3D_MODEL folder( it render simple materials like colors in faces not Texture!, the materials is in MTL files near the OBJ file, they must be the same name to load the materials), you can create 3d model in blender, export as OBJ, you can assing simple shader like color and assing to the faces, if the load freeze maybe it's too large file, (FPS added to see how the CARDPUTER can handle it)
 - [X] File management: delete, copy,  files DONE!! 
 - [X] Text editor: view create and edit .txt .json .conf files DONE!!
-- [x] paint mode draw new picture or edit old picture (can't do UNDO function like ctrl+z, the cardputer don't have much RAM)
+- [x] paint mode draw new picture or edit old picture Can Open BMP file Or PNG(can't do UNDO function like ctrl+z, the cardputer don't have much RAM you can save in S and Do risky thing . and if it's not good Reaload the image from file by press A)
 - [X] Timer functionality
 - [X] Step's Counter!
 - [X] Music Creator You can creat your old retro music , save the project, and export it as WAV file
