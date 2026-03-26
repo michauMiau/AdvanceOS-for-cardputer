@@ -91,8 +91,8 @@ How to format to FAT https://www.instructables.com/Format-USB-Flash-Drive-to-FAT
 - S quick save
 - A reload image Again from file (good for UNDO)
 - O outline for specific color select the color with the mouse,(the outline size by brush size and the outline color by current color)
-- 2 and 3 Buttons Zoom In Or Out (Grid Will Appeare in zoom 5 Good for pixel art edit)
-# Music Creator ALPHA (need to be improve)
+- 2 and 3 Buttons Zoom In Or Out (Grid Will Appeare in zoom 5. it's Good for pixel art edit)
+# Music Composer BETA (need to be improve)
 - S KEY to save
 - \ KEY to put or delete Note
 - ENTER to play your masterpiece (From the start)
