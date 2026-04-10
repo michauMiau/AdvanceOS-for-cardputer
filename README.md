@@ -30,7 +30,7 @@ Partition Viewer<br>
 
 
 AdvanceOS is a lightweight operating system for the Cardputer ADV, designed primarily for media playback and file browsing.
-Currently, it supports MP3 and WAV playback. In the future, Text editor and lots's of cool stuff!
+Currently, it supports MP3 and WAV playback. In the future, Text editor and lots of cool stuff!
 Upcoming features include text viewing and editing, as well as image display capabilities.
 
 # Supported Files
@@ -63,7 +63,7 @@ More info: [Launcher GitHub](https://github.com/bmorcelli/Launcher)
 
 
 # 🎮 How to Use
-- A microSD card is required. The file system must be FAT or FAT32). NTFS and exFAT are not supported. (New card (Fast 
+- A microSD card is required. The file system must be FAT or FAT32. NTFS and exFAT are not supported. (New card (Fast 
 How to format to FAT https://www.instructables.com/Format-USB-Flash-Drive-to-FATFAT16-not-FAT32/
 - Navigation is simple:
 - ESC → Go back
@@ -149,7 +149,7 @@ How to format to FAT https://www.instructables.com/Format-USB-Flash-Drive-to-FAT
 - [X] Music Creator You can creat your old retro music , save the project, and export it as WAV file
 - [x] Alarm Clock. set the current time and wake up time, the carputer calculate the time and Enter DEEP SLEEP mode to save battery life After he wake up (you can wake him up manualy by press RESET After RESET you need to set the alarm again) he will sound the alarm and turn off himself (while the cardputer in deep sleep mode don't turn off the power switch or it will never sound the alarm)
 - [x] Image viewer (PNG ,GIF,JPEG) can zoom in and out and pan image by arrow keys and +/- keys(need small size PIC limited by Cardputer RAM)
-- [x] GIF viewer work with animation (need small size GIF ,Cardputer RAM is limited)
+- [x] GIF viewer work with animation (needs small GIFs, the Cardputer RAM is limited)
 - [x] Notes for daily use
 - [x] Voice Recorder
 - [x] ESP project remote control see more info [here](https://github.com/bomberman30/AdvanceOS-for-cardputer/wiki)
@@ -163,7 +163,7 @@ How to format to FAT https://www.instructables.com/Format-USB-Flash-Drive-to-FAT
 - you can add picture to a game in game menu!! 
 How to add:
 if your game is MARIO.nes Create PNG file and rename it MARIO.png
-the image must be 135X135 size and PNG format , the image need to be in the same "Games" folder
+the image must be 135X135 size and PNG format, the image needs to be in the same "Games" folder
 
 #💡 Suggestions are Welcome!
 If you have practical ideas or feature requests, feel free to share! here https://github.com/bomberman30/AdvanceOS-for-cardputer/issues
